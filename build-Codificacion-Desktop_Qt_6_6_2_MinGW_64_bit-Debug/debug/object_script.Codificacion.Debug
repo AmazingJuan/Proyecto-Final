@@ -1,0 +1,11 @@
+debug/barco.o
+debug/fisicas.o
+debug/imagenes.o
+debug/main.o
+debug/partidas.o
+debug/reglas_juego.o
+debug/sprites.o
+debug/ventana.o
+debug/qrc_resources.o
+debug/moc_reglas_juego.o
+debug/moc_ventana.o
