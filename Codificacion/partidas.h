@@ -2,21 +2,24 @@
 #define PARTIDAS_H
 
 #define max_slots 3
-#import <QFile.h>
+#include <QFile>
+#include <QObject>
 
-class partidas
+class partidas : public QObject
 {
+    Q_OBJECT
 public:
     partidas(char *ruta);
     ~partidas();
+    void abrirArchivo();
 private:
     char *nombreArchivo;
     QFile archivo;
 
-    void abrirArchivo();
-
-
-
+signals:
+    void hayPartidas(bool hayPartidas);
+public slots:
+    void creacion();
 
 };
 

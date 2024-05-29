@@ -7,5 +7,6 @@ debug/reglas_juego.o
 debug/sprites.o
 debug/ventana.o
 debug/qrc_resources.o
+debug/moc_partidas.o
 debug/moc_reglas_juego.o
 debug/moc_ventana.o

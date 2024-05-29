@@ -7,5 +7,6 @@ release/reglas_juego.o
 release/sprites.o
 release/ventana.o
 release/qrc_resources.o
+release/moc_partidas.o
 release/moc_reglas_juego.o
 release/moc_ventana.o

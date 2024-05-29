@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,7 +29,10 @@ HEADERS += \
 
 FORMS += \
     Menu1.ui \
-    Menu2.ui
+    Menu2.ui \
+    MenuCompra.ui \
+    MiddleMessage.ui \
+    Stage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

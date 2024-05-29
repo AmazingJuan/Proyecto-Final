@@ -6,21 +6,60 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1332</width>
+    <height>804</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QDateTimeEdit" name="dateTimeEdit">
+  <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>194</width>
-     <height>22</height>
+     <x>140</x>
+     <y>80</y>
+     <width>1101</width>
+     <height>621</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="B_iniciar">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>30</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>iniciar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="B_cargar">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>30</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>cargar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="B_salir">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>30</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>salir</string>
    </property>
   </widget>
  </widget>
