@@ -12,6 +12,8 @@
 #include <QMediaPlayer>
 
 
+#include "barco.h"
+#include "obstaculo.h"
 #include "partidas.h"
 
 #define game_scale_factor 2
@@ -29,6 +31,7 @@ public:
     reglas_juego(QVector<QGraphicsView *> &graphics);
     ~reglas_juego();
     void setup();
+    void key_pressed(int key);
 private:
     QVector<QLabel *> labels;
     QVector<QPushButton *> buttons;
@@ -44,7 +47,11 @@ private:
 
     QMediaPlayer *reproductor;
 
+    barco *ship;
+    obstaculo *obstacle;
+
     void conexiones();
+    void setup_stage();
     void main_menu();
     void main_menu_load();
     void show_middle_message(QString text);
@@ -52,6 +59,9 @@ private:
     void show_buttons(QVector<QPushButton *> &buttons);
 private slots:
     void loadMenu(bool dato);
+    void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, obstaculo *obstacle);
+    void try_move_2(QPoint pos, QGraphicsProxyWidget *widget);
+
     void cargar();
     void salir();
     void iniciar();

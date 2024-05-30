@@ -7,4 +7,10 @@
     <qresource prefix="/fuentes">
         <file>Fuentes/pirata.ttf</file>
     </qresource>
+    <qresource prefix="/gifs">
+        <file>Gifs/ship1_1.gif</file>
+        <file>Gifs/ship1_2.gif</file>
+        <file>Gifs/ship1_3.gif</file>
+        <file>Gifs/obstacle_1.gif</file>
+    </qresource>
 </RCC>

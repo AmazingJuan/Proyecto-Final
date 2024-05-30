@@ -50,6 +50,14 @@ constexpr auto qt_meta_stringdata_CLASSreglas_juegoENDCLASS = QtMocHelpers::stri
     "new_text",
     "loadMenu",
     "dato",
+    "try_move",
+    "future_pos",
+    "QGraphicsProxyWidget*",
+    "widget",
+    "obstaculo*",
+    "obstacle",
+    "try_move_2",
+    "pos",
     "cargar",
     "salir",
     "iniciar",
@@ -57,7 +65,7 @@ constexpr auto qt_meta_stringdata_CLASSreglas_juegoENDCLASS = QtMocHelpers::stri
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t {
-    uint offsetsAndSizes[30];
+    uint offsetsAndSizes[46];
     char stringdata0[13];
     char stringdata1[14];
     char stringdata2[1];
@@ -69,10 +77,18 @@ struct qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t {
     char stringdata8[9];
     char stringdata9[9];
     char stringdata10[5];
-    char stringdata11[7];
-    char stringdata12[6];
-    char stringdata13[8];
-    char stringdata14[13];
+    char stringdata11[9];
+    char stringdata12[11];
+    char stringdata13[22];
+    char stringdata14[7];
+    char stringdata15[11];
+    char stringdata16[9];
+    char stringdata17[11];
+    char stringdata18[4];
+    char stringdata19[7];
+    char stringdata20[6];
+    char stringdata21[8];
+    char stringdata22[13];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -89,10 +105,18 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t qt_meta_
         QT_MOC_LITERAL(90, 8),  // "new_text"
         QT_MOC_LITERAL(99, 8),  // "loadMenu"
         QT_MOC_LITERAL(108, 4),  // "dato"
-        QT_MOC_LITERAL(113, 6),  // "cargar"
-        QT_MOC_LITERAL(120, 5),  // "salir"
-        QT_MOC_LITERAL(126, 7),  // "iniciar"
-        QT_MOC_LITERAL(134, 12)   // "change_scene"
+        QT_MOC_LITERAL(113, 8),  // "try_move"
+        QT_MOC_LITERAL(122, 10),  // "future_pos"
+        QT_MOC_LITERAL(133, 21),  // "QGraphicsProxyWidget*"
+        QT_MOC_LITERAL(155, 6),  // "widget"
+        QT_MOC_LITERAL(162, 10),  // "obstaculo*"
+        QT_MOC_LITERAL(173, 8),  // "obstacle"
+        QT_MOC_LITERAL(182, 10),  // "try_move_2"
+        QT_MOC_LITERAL(193, 3),  // "pos"
+        QT_MOC_LITERAL(197, 6),  // "cargar"
+        QT_MOC_LITERAL(204, 5),  // "salir"
+        QT_MOC_LITERAL(210, 7),  // "iniciar"
+        QT_MOC_LITERAL(218, 12)   // "change_scene"
     },
     "reglas_juego",
     "crear_archivo",
@@ -105,6 +129,14 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t qt_meta_
     "new_text",
     "loadMenu",
     "dato",
+    "try_move",
+    "future_pos",
+    "QGraphicsProxyWidget*",
+    "widget",
+    "obstaculo*",
+    "obstacle",
+    "try_move_2",
+    "pos",
     "cargar",
     "salir",
     "iniciar",
@@ -120,7 +152,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSreglas_juegoENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -128,17 +160,19 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSreglas_juegoENDCLASS[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   68,    2, 0x06,    1 /* Public */,
-       3,    1,   69,    2, 0x06,    2 /* Public */,
-       5,    1,   72,    2, 0x06,    4 /* Public */,
-       6,    2,   75,    2, 0x06,    6 /* Public */,
+       1,    0,   80,    2, 0x06,    1 /* Public */,
+       3,    1,   81,    2, 0x06,    2 /* Public */,
+       5,    1,   84,    2, 0x06,    4 /* Public */,
+       6,    2,   87,    2, 0x06,    6 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       9,    1,   80,    2, 0x08,    9 /* Private */,
-      11,    0,   83,    2, 0x08,   11 /* Private */,
-      12,    0,   84,    2, 0x08,   12 /* Private */,
-      13,    0,   85,    2, 0x08,   13 /* Private */,
-      14,    0,   86,    2, 0x08,   14 /* Private */,
+       9,    1,   92,    2, 0x08,    9 /* Private */,
+      11,    3,   95,    2, 0x08,   11 /* Private */,
+      17,    2,  102,    2, 0x08,   15 /* Private */,
+      19,    0,  107,    2, 0x08,   18 /* Private */,
+      20,    0,  108,    2, 0x08,   19 /* Private */,
+      21,    0,  109,    2, 0x08,   20 /* Private */,
+      22,    0,  110,    2, 0x08,   21 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -148,6 +182,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSreglas_juegoENDCLASS[] = {
 
  // slots: parameters
     QMetaType::Void, QMetaType::Bool,   10,
+    QMetaType::Void, QMetaType::QPoint, 0x80000000 | 13, 0x80000000 | 15,   12,   14,   16,
+    QMetaType::Void, QMetaType::QPoint, 0x80000000 | 13,   18,   14,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -180,6 +216,15 @@ Q_CONSTINIT const QMetaObject reglas_juego::staticMetaObject = { {
         // method 'loadMenu'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'try_move'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QPoint, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QGraphicsProxyWidget *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<obstaculo *, std::false_type>,
+        // method 'try_move_2'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QPoint, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QGraphicsProxyWidget *, std::false_type>,
         // method 'cargar'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'salir'
@@ -203,11 +248,33 @@ void reglas_juego::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 2: _t->show_screen((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 3: _t->shoot_label_change((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
         case 4: _t->loadMenu((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 5: _t->cargar(); break;
-        case 6: _t->salir(); break;
-        case 7: _t->iniciar(); break;
-        case 8: _t->change_scene(); break;
+        case 5: _t->try_move((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QGraphicsProxyWidget*>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<obstaculo*>>(_a[3]))); break;
+        case 6: _t->try_move_2((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QGraphicsProxyWidget*>>(_a[2]))); break;
+        case 7: _t->cargar(); break;
+        case 8: _t->salir(); break;
+        case 9: _t->iniciar(); break;
+        case 10: _t->change_scene(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+        case 5:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 1:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QGraphicsProxyWidget* >(); break;
+            case 2:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< obstaculo* >(); break;
+            }
+            break;
+        case 6:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 1:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QGraphicsProxyWidget* >(); break;
+            }
+            break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
@@ -261,13 +328,13 @@ int reglas_juego::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 9;
+        if (_id < 11)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 11;
     }
     return _id;
 }

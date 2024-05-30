@@ -28,6 +28,7 @@ private:
     QWidget *menu_nuevo_widget;
     QWidget *menu_cargar_widget;
     QWidget *middle_message_widget;
+    QWidget *stages_widget;
 
     QVector<QGraphicsView *> forms;
     QVector<QLabel *> labels;
@@ -37,7 +38,7 @@ private:
 
     QFont font;
 
-
+    void keyPressEvent(QKeyEvent *event);
     void setup_game_rules();
     void setup_font();
     void conexiones();
