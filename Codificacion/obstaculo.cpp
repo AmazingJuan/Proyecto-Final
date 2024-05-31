@@ -4,23 +4,15 @@ obstaculo::obstaculo(unsigned short obs_number, float ship_mass) : fisicas(0, 0,
     QString aux = file_prefix;
     aux.append("_" + std::to_string(obs_number) + ".gif");
     obstacle_animations = new animations(":/gifs/Gifs/obstacle_1.gif");
-    speed = 6;
+    speed = 1;
+    crash_happening = false;
+    crash_counter = 0;
     movement_timer = new QTimer;
-}
-
-QLabel *obstaculo::getObstacle()
-{
-    return obstacle_animations -> getMain_label();
-}
-
-void obstaculo::setWidget(QGraphicsProxyWidget *widget)
-{
-    obstacle_animations -> setWidget(widget);
-    movement_timer->start(300);
+    movement_timer->start(25);
+    setWidget(obstacle_animations -> getMain_label());
     connect(movement_timer, &QTimer::timeout, this, &obstaculo::handle_timeout);
-    pos_x = widget->x();
-    pos_y = widget->y();
 }
+
 
 animations *obstaculo::getObstacle_animations()
 {
@@ -29,9 +21,34 @@ animations *obstaculo::getObstacle_animations()
 
 void obstaculo::handle_timeout()
 {
-    float x = obstacle_animations -> getWidget() -> x();
-    float y = obstacle_animations -> getWidget() -> y();
-    QPoint aux = QPoint(x, y + mru(1));
-    emit wanna(aux, obstacle_animations -> getWidget(), this);
+    QPoint aux = QPoint(x(), y() + mru(1));
+    emit ask_move(aux, this, crash_happening);
+}
+
+void obstaculo::crash_timeout()
+{
+    if(crash_counter < 40){
+        QPoint aux = QPoint(x(), y() + mru(-1));
+        speed = trabajo(-0.1);
+        emit ask_move(aux, this, crash_happening);
+        crash_counter++;
+    }
+    else{
+        crash_timer -> stop();
+        movement_timer -> start(25);
+        crash_happening = false;
+        crash_counter = 0;
+    }
+}
+
+void obstaculo::start_crash(QGraphicsProxyWidget *widget)
+{
+    if(widget == this){
+        crash_happening = true;
+        movement_timer -> stop();
+        crash_timer = new QTimer;
+        crash_timer -> start(25);
+        connect(crash_timer, &QTimer::timeout, this, &obstaculo::crash_timeout);
+    }
 }
 

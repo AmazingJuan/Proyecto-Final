@@ -1,27 +1,31 @@
 #include "fisicas.h"
 #include <cmath>
 
+
 fisicas::fisicas(int pos_x, int pos_y, float mass)
 {
     this -> pos_x = pos_x;
     this -> pos_y = pos_y;
     this -> mass = mass;
-    speed = 6;
+    min_speed = SPEED_MIN;
+    max_speed = SPEED_MAX;
+    speed = DEFAULT_SPEED;
 }
 
 float fisicas::mru(short direction)
 {
-    return speed * 1 * direction;
+    return speed * direction;
 }
-float fisicas::trabajo(int y_actual, float net_force)
+float fisicas::trabajo(float net_force)
 {
     float aux = ((2*net_force * speed)/mass) + speed * speed;
-    if(aux < 0) return 0;
+    if(aux < min_speed) return min_speed;
+    else if(aux > max_speed) return max_speed;
 
     speed = sqrt(aux);
 }
 
-qreal fisicas::getSpeed() const
+float fisicas::getSpeed() const
 {
     return speed;
 }

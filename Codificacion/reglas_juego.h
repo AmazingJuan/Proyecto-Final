@@ -1,4 +1,4 @@
-#ifndef REGLAS_JUEGO_H
+ #ifndef REGLAS_JUEGO_H
 #define REGLAS_JUEGO_H
 
 #include <QPushButton>
@@ -40,18 +40,25 @@ private:
 
     partidas *saves;
 
+    QTimer *time;
     QTimer *change_scene_timer;
+    QTimer *events_timer;
+    QTimer *collisions_timer;
 
     unsigned short current_scene;
     unsigned short next_scene;
 
     QMediaPlayer *reproductor;
 
+
     barco *ship;
     obstaculo *obstacle;
+    bool crash_happening;
 
     void conexiones();
+    bool is_colliding(QGraphicsProxyWidget *widget);
     void setup_stage();
+    void setup_scene(QGraphicsScene *scene);
     void main_menu();
     void main_menu_load();
     void show_middle_message(QString text);
@@ -59,14 +66,14 @@ private:
     void show_buttons(QVector<QPushButton *> &buttons);
 private slots:
     void loadMenu(bool dato);
-    void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, obstaculo *obstacle);
-    void try_move_2(QPoint pos, QGraphicsProxyWidget *widget);
+    void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
 
     void cargar();
     void salir();
     void iniciar();
     void change_scene();
 signals:
+    void crash(QGraphicsProxyWidget *widget);
     void crear_archivo();
     void hide_screen(int screen);
     void show_screen(int screen);

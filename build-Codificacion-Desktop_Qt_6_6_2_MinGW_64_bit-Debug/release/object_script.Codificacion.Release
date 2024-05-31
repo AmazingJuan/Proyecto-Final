@@ -9,7 +9,6 @@ release/reglas_juego.o
 release/ventana.o
 release/qrc_resources.o
 release/moc_barco.o
-release/moc_fisicas.o
 release/moc_obstaculo.o
 release/moc_partidas.o
 release/moc_reglas_juego.o

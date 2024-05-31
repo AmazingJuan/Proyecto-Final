@@ -38,6 +38,7 @@ private:
 
     QFont font;
 
+    void configure_graphics(QGraphicsView *graph);
     void keyPressEvent(QKeyEvent *event);
     void setup_game_rules();
     void setup_font();

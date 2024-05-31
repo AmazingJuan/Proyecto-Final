@@ -27,13 +27,13 @@ public:
     {
         if (MiddleMessage->objectName().isEmpty())
             MiddleMessage->setObjectName("MiddleMessage");
-        MiddleMessage->resize(1045, 635);
+        MiddleMessage->resize(600, 700);
         graphicsView = new QGraphicsView(MiddleMessage);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(150, 20, 811, 501));
+        graphicsView->setGeometry(QRect(0, 0, 700, 700));
         L_message = new QLabel(MiddleMessage);
         L_message->setObjectName("L_message");
-        L_message->setGeometry(QRect(180, 110, 701, 271));
+        L_message->setGeometry(QRect(0, 0, 600, 700));
 
         retranslateUi(MiddleMessage);
 

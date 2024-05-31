@@ -25,10 +25,10 @@ public:
     {
         if (Stage->objectName().isEmpty())
             Stage->setObjectName("Stage");
-        Stage->resize(792, 472);
+        Stage->resize(700, 700);
         graphicsView = new QGraphicsView(Stage);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(20, 10, 721, 441));
+        graphicsView->setGeometry(QRect(0, 0, 700, 700));
 
         retranslateUi(Stage);
 

@@ -40,51 +40,59 @@ namespace {
 struct qt_meta_stringdata_CLASSobstaculoENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSobstaculoENDCLASS = QtMocHelpers::stringData(
     "obstaculo",
-    "wanna",
+    "crash_management",
     "",
+    "ask_move",
     "future_pos",
     "QGraphicsProxyWidget*",
     "widget",
-    "obstaculo*",
-    "obstacle",
-    "handle_timeout"
+    "crash_happening",
+    "handle_timeout",
+    "crash_timeout",
+    "start_crash"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSobstaculoENDCLASS_t {
-    uint offsetsAndSizes[18];
+    uint offsetsAndSizes[22];
     char stringdata0[10];
-    char stringdata1[6];
+    char stringdata1[17];
     char stringdata2[1];
-    char stringdata3[11];
-    char stringdata4[22];
-    char stringdata5[7];
-    char stringdata6[11];
-    char stringdata7[9];
+    char stringdata3[9];
+    char stringdata4[11];
+    char stringdata5[22];
+    char stringdata6[7];
+    char stringdata7[16];
     char stringdata8[15];
+    char stringdata9[14];
+    char stringdata10[12];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSobstaculoENDCLASS_t::offsetsAndSizes) + ofs), len 
 Q_CONSTINIT static const qt_meta_stringdata_CLASSobstaculoENDCLASS_t qt_meta_stringdata_CLASSobstaculoENDCLASS = {
     {
         QT_MOC_LITERAL(0, 9),  // "obstaculo"
-        QT_MOC_LITERAL(10, 5),  // "wanna"
-        QT_MOC_LITERAL(16, 0),  // ""
-        QT_MOC_LITERAL(17, 10),  // "future_pos"
-        QT_MOC_LITERAL(28, 21),  // "QGraphicsProxyWidget*"
-        QT_MOC_LITERAL(50, 6),  // "widget"
-        QT_MOC_LITERAL(57, 10),  // "obstaculo*"
-        QT_MOC_LITERAL(68, 8),  // "obstacle"
-        QT_MOC_LITERAL(77, 14)   // "handle_timeout"
+        QT_MOC_LITERAL(10, 16),  // "crash_management"
+        QT_MOC_LITERAL(27, 0),  // ""
+        QT_MOC_LITERAL(28, 8),  // "ask_move"
+        QT_MOC_LITERAL(37, 10),  // "future_pos"
+        QT_MOC_LITERAL(48, 21),  // "QGraphicsProxyWidget*"
+        QT_MOC_LITERAL(70, 6),  // "widget"
+        QT_MOC_LITERAL(77, 15),  // "crash_happening"
+        QT_MOC_LITERAL(93, 14),  // "handle_timeout"
+        QT_MOC_LITERAL(108, 13),  // "crash_timeout"
+        QT_MOC_LITERAL(122, 11)   // "start_crash"
     },
     "obstaculo",
-    "wanna",
+    "crash_management",
     "",
+    "ask_move",
     "future_pos",
     "QGraphicsProxyWidget*",
     "widget",
-    "obstaculo*",
-    "obstacle",
-    "handle_timeout"
+    "crash_happening",
+    "handle_timeout",
+    "crash_timeout",
+    "start_crash"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -96,30 +104,36 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSobstaculoENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,   26,    2, 0x06,    1 /* Public */,
+       1,    0,   44,    2, 0x06,    1 /* Public */,
+       3,    3,   45,    2, 0x06,    2 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       8,    0,   33,    2, 0x08,    5 /* Private */,
+       8,    0,   52,    2, 0x08,    6 /* Private */,
+       9,    0,   53,    2, 0x08,    7 /* Private */,
+      10,    1,   54,    2, 0x0a,    8 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QPoint, 0x80000000 | 4, 0x80000000 | 6,    3,    5,    7,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QPoint, 0x80000000 | 5, QMetaType::Bool,    4,    6,    7,
 
  // slots: parameters
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 5,    6,
 
        0        // eod
 };
 
 Q_CONSTINIT const QMetaObject obstaculo::staticMetaObject = { {
-    QMetaObject::SuperData::link<fisicas::staticMetaObject>(),
+    QMetaObject::SuperData::link<QGraphicsProxyWidget::staticMetaObject>(),
     qt_meta_stringdata_CLASSobstaculoENDCLASS.offsetsAndSizes,
     qt_meta_data_CLASSobstaculoENDCLASS,
     qt_static_metacall,
@@ -127,13 +141,20 @@ Q_CONSTINIT const QMetaObject obstaculo::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSobstaculoENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<obstaculo, std::true_type>,
-        // method 'wanna'
+        // method 'crash_management'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'ask_move'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QPoint, std::false_type>,
         QtPrivate::TypeAndForceComplete<QGraphicsProxyWidget *, std::false_type>,
-        QtPrivate::TypeAndForceComplete<obstaculo *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         // method 'handle_timeout'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'crash_timeout'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'start_crash'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QGraphicsProxyWidget *, std::false_type>
     >,
     nullptr
 } };
@@ -144,29 +165,44 @@ void obstaculo::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         auto *_t = static_cast<obstaculo *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->wanna((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QGraphicsProxyWidget*>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<obstaculo*>>(_a[3]))); break;
-        case 1: _t->handle_timeout(); break;
+        case 0: _t->crash_management(); break;
+        case 1: _t->ask_move((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QGraphicsProxyWidget*>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[3]))); break;
+        case 2: _t->handle_timeout(); break;
+        case 3: _t->crash_timeout(); break;
+        case 4: _t->start_crash((*reinterpret_cast< std::add_pointer_t<QGraphicsProxyWidget*>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-        case 0:
+        case 1:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 1:
                 *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QGraphicsProxyWidget* >(); break;
-            case 2:
-                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< obstaculo* >(); break;
+            }
+            break;
+        case 4:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QGraphicsProxyWidget* >(); break;
             }
             break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (obstaculo::*)(QPoint , QGraphicsProxyWidget * , obstaculo * );
-            if (_t _q_method = &obstaculo::wanna; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            using _t = void (obstaculo::*)();
+            if (_t _q_method = &obstaculo::crash_management; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (obstaculo::*)(QPoint , QGraphicsProxyWidget * , bool );
+            if (_t _q_method = &obstaculo::ask_move; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 1;
                 return;
             }
         }
@@ -183,30 +219,38 @@ void *obstaculo::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_CLASSobstaculoENDCLASS.stringdata0))
         return static_cast<void*>(this);
-    return fisicas::qt_metacast(_clname);
+    if (!strcmp(_clname, "fisicas"))
+        return static_cast< fisicas*>(this);
+    return QGraphicsProxyWidget::qt_metacast(_clname);
 }
 
 int obstaculo::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = fisicas::qt_metacall(_c, _id, _a);
+    _id = QGraphicsProxyWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     }
     return _id;
 }
 
 // SIGNAL 0
-void obstaculo::wanna(QPoint _t1, QGraphicsProxyWidget * _t2, obstaculo * _t3)
+void obstaculo::crash_management()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void obstaculo::ask_move(QPoint _t1, QGraphicsProxyWidget * _t2, bool _t3)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_WARNING_POP

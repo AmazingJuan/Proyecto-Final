@@ -6,15 +6,17 @@
 #include <QTimer>
 #include <QPoint>
 
-#define sampling_time 500
-class fisicas : public QObject
+#define sampling_time 25
+class fisicas
 {
-    Q_OBJECT
 public:
+    static const int SPEED_MAX = 6;
+    static const int SPEED_MIN = 1;
+    static const int DEFAULT_SPEED = 2;
     fisicas(int pos_x, int pos_y, float mass);
     float mru(short direction);
-    float trabajo(int y_actual, float net_force);
-    qreal getSpeed() const;
+    float trabajo(float net_force);
+    float getSpeed() const;
     void setSpeed(qreal newSpeed);
 
     float getPos_x() const;
@@ -26,9 +28,10 @@ public:
 protected:
     float pos_x;
     float pos_y;
-    qreal mass;
+    float mass;
     float speed;
-    QGraphicsProxyWidget *widget;
+    bool crash_happening;
+    unsigned short crash_counter;
 private:
     qreal max_speed;
     qreal min_speed;

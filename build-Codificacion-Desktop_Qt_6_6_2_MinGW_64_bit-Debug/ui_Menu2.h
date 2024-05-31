@@ -29,10 +29,10 @@ public:
     {
         if (Menu2->objectName().isEmpty())
             Menu2->setObjectName("Menu2");
-        Menu2->resize(1332, 804);
+        Menu2->resize(700, 700);
         graphicsView = new QGraphicsView(Menu2);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(140, 80, 1101, 621));
+        graphicsView->setGeometry(QRect(0, 0, 700, 700));
         B_iniciar = new QPushButton(Menu2);
         B_iniciar->setObjectName("B_iniciar");
         B_iniciar->setGeometry(QRect(150, 30, 75, 24));

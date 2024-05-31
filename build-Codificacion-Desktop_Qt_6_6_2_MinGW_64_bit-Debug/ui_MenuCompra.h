@@ -25,10 +25,10 @@ public:
     {
         if (MenuCompra->objectName().isEmpty())
             MenuCompra->setObjectName("MenuCompra");
-        MenuCompra->resize(515, 356);
+        MenuCompra->resize(700, 700);
         graphicsView = new QGraphicsView(MenuCompra);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(70, 40, 371, 251));
+        graphicsView->setGeometry(QRect(0, 0, 700, 700));
 
         retranslateUi(MenuCompra);
 

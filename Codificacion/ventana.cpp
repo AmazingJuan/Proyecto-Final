@@ -36,6 +36,7 @@ ventana::ventana(QWidget *parent)
     hide_widget(3);
     setup_game_rules();
     setup_font();
+
 }
 
 
@@ -44,6 +45,16 @@ ventana::~ventana()
 {
     delete menu_nuevo_widget;
     delete menu_cargar_widget;
+}
+
+void ventana::configure_graphics(QGraphicsView *graph)
+{
+    graph->setFixedSize(700,700);
+    graph->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    graph->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    graph->setRenderHint(QPainter::Antialiasing);
+    graph->setRenderHint(QPainter::SmoothPixmapTransform);
+    graph->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 }
 
 void ventana::keyPressEvent(QKeyEvent *event)
@@ -55,9 +66,13 @@ void ventana::keyPressEvent(QKeyEvent *event)
 void ventana::setup_game_rules()
 {
     forms.push_back(menu_nuevo.graphicsView);
+    configure_graphics(menu_nuevo.graphicsView);
     forms.push_back(menu_cargar.graphicsView);
+    configure_graphics(menu_cargar.graphicsView);
     forms.push_back(middle_message.graphicsView);
+    configure_graphics(middle_message.graphicsView);
     forms.push_back(stages.graphicsView);
+    configure_graphics(stages.graphicsView);
 
     game = new reglas_juego(forms);
     conexiones();

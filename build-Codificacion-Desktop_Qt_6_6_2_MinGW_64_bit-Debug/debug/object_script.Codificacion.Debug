@@ -9,7 +9,6 @@ debug/reglas_juego.o
 debug/ventana.o
 debug/qrc_resources.o
 debug/moc_barco.o
-debug/moc_fisicas.o
 debug/moc_obstaculo.o
 debug/moc_partidas.o
 debug/moc_reglas_juego.o
