@@ -48,11 +48,12 @@ constexpr auto qt_meta_stringdata_CLASSbarcoENDCLASS = QtMocHelpers::stringData(
     "crash_happening",
     "crash_management",
     "crash_timeout",
-    "start_crash"
+    "start_crash",
+    "recieve_coin"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSbarcoENDCLASS_t {
-    uint offsetsAndSizes[20];
+    uint offsetsAndSizes[22];
     char stringdata0[6];
     char stringdata1[9];
     char stringdata2[1];
@@ -63,6 +64,7 @@ struct qt_meta_stringdata_CLASSbarcoENDCLASS_t {
     char stringdata7[17];
     char stringdata8[14];
     char stringdata9[12];
+    char stringdata10[13];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSbarcoENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -77,7 +79,8 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSbarcoENDCLASS_t qt_meta_stringd
         QT_MOC_LITERAL(56, 15),  // "crash_happening"
         QT_MOC_LITERAL(72, 16),  // "crash_management"
         QT_MOC_LITERAL(89, 13),  // "crash_timeout"
-        QT_MOC_LITERAL(103, 11)   // "start_crash"
+        QT_MOC_LITERAL(103, 11),  // "start_crash"
+        QT_MOC_LITERAL(115, 12)   // "recieve_coin"
     },
     "barco",
     "ask_move",
@@ -88,7 +91,8 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSbarcoENDCLASS_t qt_meta_stringd
     "crash_happening",
     "crash_management",
     "crash_timeout",
-    "start_crash"
+    "start_crash",
+    "recieve_coin"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -100,7 +104,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSbarcoENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -108,12 +112,13 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSbarcoENDCLASS[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,   38,    2, 0x06,    1 /* Public */,
-       7,    0,   45,    2, 0x06,    5 /* Public */,
+       1,    3,   44,    2, 0x06,    1 /* Public */,
+       7,    0,   51,    2, 0x06,    5 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       8,    0,   46,    2, 0x08,    6 /* Private */,
-       9,    1,   47,    2, 0x0a,    7 /* Public */,
+       8,    0,   52,    2, 0x08,    6 /* Private */,
+       9,    1,   53,    2, 0x0a,    7 /* Public */,
+      10,    0,   56,    2, 0x0a,    9 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QPoint, 0x80000000 | 4, QMetaType::Bool,    3,    5,    6,
@@ -122,6 +127,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSbarcoENDCLASS[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -146,7 +152,9 @@ Q_CONSTINIT const QMetaObject barco::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'start_crash'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<QGraphicsProxyWidget *, std::false_type>
+        QtPrivate::TypeAndForceComplete<QGraphicsProxyWidget *, std::false_type>,
+        // method 'recieve_coin'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -161,6 +169,7 @@ void barco::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         case 1: _t->crash_management(); break;
         case 2: _t->crash_timeout(); break;
         case 3: _t->start_crash((*reinterpret_cast< std::add_pointer_t<QGraphicsProxyWidget*>>(_a[1]))); break;
+        case 4: _t->recieve_coin(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -221,13 +230,13 @@ int barco::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

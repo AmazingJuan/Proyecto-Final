@@ -7,13 +7,6 @@ animations::animations(QString file_prefix, int number_animations)
     this -> file_prefix = file_path + file_prefix;
     animations_number = number_animations;
     initialize_movies();
-
-
-
-
-
-
-
 }
 
 animations::animations(QString route)
@@ -57,9 +50,7 @@ void animations::initialize_movies()
 void animations::setup_label()
 {
     main_label->setFixedSize(100,100);
-    main_label -> setVisible(true);
     main_label->setScaledContents(true);
-    main_label -> setVisible(true);
     main_label->setStyleSheet("background-color: transparent;");
 }
 

@@ -20,6 +20,8 @@
 #define main_menu_scene 0
 #define main_menu_load_scene 1
 #define middle_message_scene 2
+#define max_x 7
+#define max_y 7
 
 
 #define savegame_route "../Codificacion/Savedata/savegame.txt"
@@ -40,23 +42,27 @@ private:
 
     partidas *saves;
 
-    QTimer *time;
+    QTimer *game_timer;
     QTimer *change_scene_timer;
-    QTimer *events_timer;
     QTimer *collisions_timer;
 
     unsigned short current_scene;
+    unsigned short in_scene_obstacles;
     unsigned short next_scene;
+    unsigned short current_stage;
+    unsigned short current_matrix_fila;
+
+    unsigned int seed;
 
     QMediaPlayer *reproductor;
 
-
     barco *ship;
-    obstaculo *obstacle;
-    bool crash_happening;
+    QVector<QVector<obstaculo*> *> obstacles;
 
-    void conexiones();
+    void initial_conections();
+    void obstacle_connections(obstaculo *obstacle);
     bool is_colliding(QGraphicsProxyWidget *widget);
+    void setup_obstacles();
     void setup_stage();
     void setup_scene(QGraphicsScene *scene);
     void main_menu();
@@ -67,13 +73,13 @@ private:
 private slots:
     void loadMenu(bool dato);
     void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
-
     void cargar();
     void salir();
     void iniciar();
     void change_scene();
 signals:
     void crash(QGraphicsProxyWidget *widget);
+    void change_speed(short value);
     void crear_archivo();
     void hide_screen(int screen);
     void show_screen(int screen);

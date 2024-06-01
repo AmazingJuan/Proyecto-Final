@@ -55,3 +55,13 @@ void fisicas::setPos_y(float newPos_y)
     pos_y = newPos_y;
 }
 
+float fisicas::getMass() const
+{
+    return mass;
+}
+
+void fisicas::setMass(float newMass)
+{
+    mass = newMass;
+}
+

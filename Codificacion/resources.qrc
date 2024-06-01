@@ -12,5 +12,8 @@
         <file>Gifs/ship1_2.gif</file>
         <file>Gifs/ship1_3.gif</file>
         <file>Gifs/obstacle_1.gif</file>
+        <file>Gifs/obstacle_2.gif</file>
+        <file>Gifs/obstacle_3.gif</file>
+        <file>Gifs/obstacle_4.gif</file>
     </qresource>
 </RCC>

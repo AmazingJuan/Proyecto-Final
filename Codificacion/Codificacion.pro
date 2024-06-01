@@ -12,21 +12,21 @@ SOURCES += \
     animations.cpp \
     barco.cpp \
     fisicas.cpp \
-    imagenes.cpp \
     main.cpp \
     obstaculo.cpp \
     partidas.cpp \
     reglas_juego.cpp \
+    utilities.cpp \
     ventana.cpp
 
 HEADERS += \
     animations.h \
     barco.h \
     fisicas.h \
-    imagenes.h \
     obstaculo.h \
     partidas.h \
     reglas_juego.h \
+    utilities.h \
     ventana.h
 
 FORMS += \

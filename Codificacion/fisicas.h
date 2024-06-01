@@ -25,6 +25,9 @@ public:
     float getPos_y() const;
     void setPos_y(float newPos_y);
 
+    float getMass() const;
+    void setMass(float newMass);
+
 protected:
     float pos_x;
     float pos_y;

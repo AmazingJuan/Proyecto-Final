@@ -4,9 +4,11 @@ barco::barco(int level, QString file_prefix, int pos_x, int pos_y) : fisicas(pos
 {
     ship_animations = new animations(file_prefix, ship_animations_number);
     crash_counter = 0;
+    crash_timer = nullptr;
     crash_happening = false;
     this -> setWidget(ship_animations -> getMain_label());
     ship_animations -> set_animation(0);
+    money = 0;
 }
 
 void barco::move(int animation)
@@ -26,6 +28,16 @@ animations *barco::getShip_animations()
     return ship_animations;
 }
 
+unsigned short barco::getMoney() const
+{
+    return money;
+}
+
+void barco::setMoney(unsigned short newMoney)
+{
+    money = newMoney;
+}
+
 void barco::crash_timeout()
 {
     if(crash_counter < 40){
@@ -39,8 +51,8 @@ void barco::crash_timeout()
         emit ask_move(aux, this, crash_happening);
         if(y() + mru(-1) <= 400){
             crash_timer -> stop();
-            crash_happening = false;
             crash_counter = 0;
+            crash_happening = false;
         }
     }
 }
@@ -48,8 +60,17 @@ void barco::crash_timeout()
 void barco::start_crash(QGraphicsProxyWidget *widget)
 {
     crash_happening = true;
-    crash_timer = new QTimer;
-    crash_timer -> start(25);
+
+    if(crash_timer == nullptr) {
+        crash_timer = new QTimer;
+        connect(crash_timer, &QTimer::timeout, this, &barco::crash_timeout);
+    }
+    else if(!crash_timer->isActive()) crash_timer -> start(25);
     speed = 1;
-    connect(crash_timer, &QTimer::timeout, this, &barco::crash_timeout);
+
+}
+
+void barco::recieve_coin()
+{
+    money += 10;
 }

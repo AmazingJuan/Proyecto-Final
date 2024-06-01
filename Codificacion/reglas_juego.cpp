@@ -1,15 +1,17 @@
 #include "reglas_juego.h"
-#include "imagenes.h"
+#include "utilities.h"
 
 reglas_juego::reglas_juego(QVector<QGraphicsView *> &graphics)
 {
+    seed = std::chrono::system_clock::now().time_since_epoch().count();
     next_scene = -1;
+    in_scene_obstacles = 0;
+    current_matrix_fila = 0;
     current_scene = -1;
     change_scene_timer = new QTimer();
-    crash_happening = false;
     interfaces = graphics;
     saves = new partidas(savegame_route);
-    conexiones();
+    initial_conections();
 }
 
 
@@ -57,7 +59,7 @@ void reglas_juego::key_pressed(int key)
     if(current_scene == 3){
         if(key == Qt::Key_W){
             ship -> move(0);
-            obstacle -> trabajo(1);
+            emit change_speed(1);
         }
         else if(key == Qt::Key_A){
             ship -> move(1);
@@ -66,9 +68,17 @@ void reglas_juego::key_pressed(int key)
             ship -> move(2);
         }
         else if(key == Qt::Key_S){
-            obstacle -> trabajo(-1);
+            emit change_speed(-1);
         }
     }
+}
+
+void reglas_juego::obstacle_connections(obstaculo *obstacle)
+{
+    connect(obstacle, &obstaculo::ask_move, this, &reglas_juego::try_move);
+    connect(this, &reglas_juego::crash, obstacle, &obstaculo::start_crash);
+    connect(this, &reglas_juego::change_speed, obstacle, &obstaculo::change_speed);
+    if(!obstacle -> getIs_dangerous()) connect(obstacle, &obstaculo::collect_coin, ship, &barco::recieve_coin);
 }
 
 
@@ -91,14 +101,9 @@ void reglas_juego::iniciar()
     scenes[3] -> addItem(ship);
     ship -> setX(300);
     ship -> setY(400);
-    connect(ship, &barco::ask_move, this, &reglas_juego::try_move);
-    obstacle = new obstaculo(1, 2);
-    scenes[3] -> addItem(obstacle);
-    obstacle -> setX(0);
-    obstacle -> setY(0);
-    connect(this, &reglas_juego::crash, obstacle, &obstaculo::start_crash);
+    setup_obstacles();
     connect(this, &reglas_juego::crash, ship, &barco::start_crash);
-    connect(obstacle, &obstaculo::ask_move, this, &reglas_juego::try_move);
+    connect(ship, &barco::ask_move, this, &reglas_juego::try_move);
 
 }
 
@@ -122,13 +127,19 @@ void reglas_juego::try_move(QPoint pos, QGraphicsProxyWidget *widget, bool crash
 {
 
     bool aux = is_colliding(widget);
-
+    auto auxObs = dynamic_cast<obstaculo*>(widget);
     if(!crash_happening){
         if(!aux && widget->isActive()){
             widget->setX(pos.x());
             widget->setY(pos.y());
         }
-        else if(aux){
+        else if(widget->isActive()){
+            ship -> setMoney(500);
+        }
+        else if(!aux){
+            ship -> setMoney(500);
+        }
+        else if(aux && auxObs -> getIs_dangerous()){
             emit crash(widget);
         }
         else{
@@ -149,7 +160,7 @@ void reglas_juego::show_middle_message(QString text)
     emit shoot_label_change(0, text);
 }
 
-void reglas_juego::conexiones()
+void reglas_juego::initial_conections()
 {
     connect(this, &reglas_juego::crear_archivo, saves, &partidas::creacion);
     connect(saves, &partidas::hayPartidas, this, &reglas_juego::loadMenu);
@@ -158,12 +169,27 @@ void reglas_juego::conexiones()
 
 bool reglas_juego::is_colliding(QGraphicsProxyWidget *widget)
 {
-
     if(widget != ship){
-
         return widget->collidesWithItem(ship);
     }
     else{
         return false;
+    }
+}
+
+void reglas_juego::setup_obstacles()
+{
+    for(unsigned short fila = 0; fila < max_y; fila++){
+        obstacles.push_back(new QVector<obstaculo*>);
+        QVector<obstaculo*> aux = *obstacles[fila];
+        for (unsigned short columna = 0; columna < max_x; columna++) {
+            if(random_bool(seed)) aux.push_back(new obstaculo(4, ship -> getMass()));
+            else aux.push_back(new obstaculo(random_short(1,current_scene, seed), ship -> getMass()));
+            scenes[3] -> addItem(aux[columna]);
+            aux[columna] -> setX(columna * 100);
+            aux[columna] -> setY(-1*(fila + 1) * 100);
+            obstacle_connections(aux[columna]);
+            aux[columna]->start_movement();
+        }
     }
 }

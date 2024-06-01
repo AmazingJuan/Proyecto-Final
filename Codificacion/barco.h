@@ -15,8 +15,12 @@ public:
     barco(int level, QString file_prefix, int pos_x, int pos_y);
     void move(int key);
     animations *getShip_animations();
+    unsigned short getMoney() const;
+    void setMoney(unsigned short newMoney);
+
 private:
     int actual_animation;
+    unsigned short money;
     animations *ship_animations;
     QTimer *crash_timer;
 private slots:
@@ -26,6 +30,7 @@ signals:
     void crash_management();
 public slots:
     void start_crash(QGraphicsProxyWidget *widget);
+    void recieve_coin();
 };
 
 #endif // BARCO_H
