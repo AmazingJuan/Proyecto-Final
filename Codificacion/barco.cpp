@@ -1,14 +1,18 @@
 #include "barco.h"
 
-barco::barco(int level, QString file_prefix, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5)
+barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5)
 {
-    ship_animations = new animations(file_prefix, ship_animations_number);
+    QString aux = file_prefix + QString::number(level);
+    ship_animations = new animations(aux, ship_animations_number, 100);
     crash_counter = 0;
+    money = 8500;
+    this -> level = level;
     crash_timer = nullptr;
     crash_happening = false;
     this -> setWidget(ship_animations -> getMain_label());
     ship_animations -> set_animation(0);
-    money = 0;
+    setX(pos_x);
+    setY(pos_y);
 }
 
 void barco::move(int animation)
@@ -36,6 +40,23 @@ unsigned short barco::getMoney() const
 void barco::setMoney(unsigned short newMoney)
 {
     money = newMoney;
+}
+
+unsigned short barco::getLevel() const
+{
+    return level;
+}
+
+void barco::setLevel(unsigned short newLevel)
+{
+    level = newLevel;
+}
+
+void barco::level_up(unsigned short level)
+{
+    this -> level = level;
+    QString aux = file_prefix + QString::number(level);
+    ship_animations -> change_animations(aux, 3);
 }
 
 void barco::crash_timeout()

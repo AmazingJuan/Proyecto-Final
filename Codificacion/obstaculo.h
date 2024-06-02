@@ -9,17 +9,19 @@
 #include "animations.h"
 #include "fisicas.h"
 
-#define file_prefix ":/gifs/Gifs/obstacle"
+#define prefix ":/gifs/Gifs/obstacle"
 class obstaculo : public QGraphicsProxyWidget, public fisicas
 {
     Q_OBJECT
 public:
-    obstaculo(unsigned short obs_number, float ship_mass);
+    obstaculo(unsigned short obs_number, float ship_mass, unsigned short max_pixels);
+    ~obstaculo();
     void move(int direction);
     animations *getObstacle_animations();
     bool getIs_dangerous() const;
     void setIs_dangerous(bool newIs_dangerous);
     void start_movement();
+    void stop_movement();
 private:
     bool is_dangerous;
     animations *obstacle_animations;
@@ -33,6 +35,7 @@ public slots:
     void change_speed(short value);
 signals:
     void collect_coin();
+    void surpassed_limit(obstaculo *obs);
     void crash_management();
     void ask_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
 };

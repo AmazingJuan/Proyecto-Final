@@ -8,19 +8,23 @@
 #include "fisicas.h"
 
 #define ship_animations_number 3
+#define file_prefix "ship"
 class barco : public QGraphicsProxyWidget, public fisicas
 {
     Q_OBJECT
 public:
-    barco(int level, QString file_prefix, int pos_x, int pos_y);
+    barco(int level, int pos_x, int pos_y);
     void move(int key);
     animations *getShip_animations();
     unsigned short getMoney() const;
     void setMoney(unsigned short newMoney);
-
+    unsigned short getLevel() const;
+    void setLevel(unsigned short newLevel);
+    void level_up(unsigned short level);
 private:
     int actual_animation;
-    unsigned short money;
+    unsigned int money;
+    unsigned  short level;
     animations *ship_animations;
     QTimer *crash_timer;
 private slots:

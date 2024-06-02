@@ -1,16 +1,22 @@
 #include "reglas_juego.h"
 #include "utilities.h"
 
-reglas_juego::reglas_juego(QVector<QGraphicsView *> &graphics)
+reglas_juego::reglas_juego(QVector<QGraphicsView *> &graphics, QVector<QPushButton *> &shop_buttons)
 {
+    this -> shop_buttons = shop_buttons;
     seed = std::chrono::system_clock::now().time_since_epoch().count();
     next_scene = -1;
     in_scene_obstacles = 0;
-    current_matrix_fila = 0;
+    random_int_range = 0;
     current_scene = -1;
+    current_stage = 1;
     change_scene_timer = new QTimer();
     interfaces = graphics;
     saves = new partidas(savegame_route);
+
+    shop_prices[0] = 100;
+    shop_prices[1] = 600;
+    shop_prices[2] = 1000;
     initial_conections();
 }
 
@@ -33,10 +39,13 @@ reglas_juego::~reglas_juego()
 {
     delete saves;
     delete change_scene_timer;
+    for(int cont = 0; cont < removed_obstacles.size(); cont++) delete removed_obstacles[cont];
 }
 
 void reglas_juego::setup()
 {
+    scenes.push_back(new QGraphicsScene);
+    scenes[scenes.size()-1]->setSceneRect(0, 0, 700, 700);
     scenes.push_back(new QGraphicsScene);
     scenes[scenes.size()-1]->setSceneRect(0, 0, 700, 700);
     scenes.push_back(new QGraphicsScene);
@@ -70,7 +79,11 @@ void reglas_juego::key_pressed(int key)
         else if(key == Qt::Key_S){
             emit change_speed(-1);
         }
+        else if(key == Qt::Key_Escape){
+            handle_menu_compra();
+        }
     }
+    else if(current_scene == 4 && key == Qt::Key_Escape) handle_menu_compra();
 }
 
 void reglas_juego::obstacle_connections(obstaculo *obstacle)
@@ -78,6 +91,7 @@ void reglas_juego::obstacle_connections(obstaculo *obstacle)
     connect(obstacle, &obstaculo::ask_move, this, &reglas_juego::try_move);
     connect(this, &reglas_juego::crash, obstacle, &obstaculo::start_crash);
     connect(this, &reglas_juego::change_speed, obstacle, &obstaculo::change_speed);
+    connect(obstacle, &obstaculo::surpassed_limit, this, &reglas_juego::outside_removal);
     if(!obstacle -> getIs_dangerous()) connect(obstacle, &obstaculo::collect_coin, ship, &barco::recieve_coin);
 }
 
@@ -87,24 +101,20 @@ void reglas_juego::cargar()
 
 }
 
-void reglas_juego::salir()
-{
-
-}
-
 void reglas_juego::iniciar()
 {
-    change_scene_timer -> start(5000);
+    change_scene_timer -> start(100);
     show_middle_message("Texto_prueba");
     next_scene = 3;
-    ship = new barco(1, "ship1", 0 ,0);
+    ship = new barco(1, 300 , 400);
     scenes[3] -> addItem(ship);
-    ship -> setX(300);
-    ship -> setY(400);
     setup_obstacles();
-    connect(this, &reglas_juego::crash, ship, &barco::start_crash);
+    setup_shop();
+    update_shop(0);
+    dispatch_obstacles_timer = new QTimer;
+    dispatch_obstacles_timer -> start(4000);
+    connect(dispatch_obstacles_timer, &QTimer::timeout, this, &reglas_juego::dispatch_obstacles);
     connect(ship, &barco::ask_move, this, &reglas_juego::try_move);
-
 }
 
 void reglas_juego::change_scene()
@@ -129,7 +139,7 @@ void reglas_juego::try_move(QPoint pos, QGraphicsProxyWidget *widget, bool crash
     bool aux = is_colliding(widget);
     auto auxObs = dynamic_cast<obstaculo*>(widget);
     if(!crash_happening){
-        if(!aux && widget->isActive()){
+        if(!aux){
             widget->setX(pos.x());
             widget->setY(pos.y());
         }
@@ -146,10 +156,35 @@ void reglas_juego::try_move(QPoint pos, QGraphicsProxyWidget *widget, bool crash
 
         }
     }
-    else{
+    else if(crash_happening){
         widget->setX(pos.x());
         widget->setY(pos.y());
     }
+}
+
+void reglas_juego::dispatch_obstacles()
+{
+    if(in_scene_obstacles < (current_stage + 1)){
+        unsigned short random = random_short(0, random_int_range, seed);
+        active_obstacles[random]->start_movement();
+        active_obstacles.removeOne(active_obstacles[random]);
+        in_scene_obstacles++;
+        if(random_int_range == 0) random_int_range = 6;
+        random_int_range -= 1;
+    }
+}
+
+void reglas_juego::manage_shop_buttons()
+{
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    unsigned short index = shop_buttons.indexOf(button);
+    if(ship -> getMoney() >= shop_prices[index] && index + 2 > ship -> getLevel()){
+        handle_menu_compra();
+        ship -> level_up(index + 2);
+    }
+    else{
+    }
+
 
 }
 
@@ -157,7 +192,33 @@ void reglas_juego::show_middle_message(QString text)
 {
     next_scene = 2;
     change_scene();
-    emit shoot_label_change(0, text);
+    emit shoot_label_change(0, text, true);
+}
+
+void reglas_juego::handle_menu_compra()
+{
+
+    if(current_scene == 3) next_scene = 4;
+    else next_scene = 3;
+    change_scene();
+}
+
+void reglas_juego::update_shop(unsigned short blocked)
+{
+    int price = 0;
+    unsigned short cont = 0;
+    for(; cont < 3; cont++){
+        if(cont + 1<= blocked){
+            emit shoot_label_change(cont + 1, "", true);
+            price += shop_prices[cont];
+        }
+        else{
+            QString aux = QString::number(shop_prices[cont] - price);
+            shop_prices[cont] = shop_prices[cont] - price;
+            emit shoot_label_change(cont + 1, aux, true);
+        }
+    }
+    emit shoot_label_change(cont + 1, QString(QString::number(ship -> getMoney()) + " COINS" ), false);
 }
 
 void reglas_juego::initial_conections()
@@ -177,19 +238,45 @@ bool reglas_juego::is_colliding(QGraphicsProxyWidget *widget)
     }
 }
 
+void reglas_juego::outside_removal(obstaculo *obs)
+{
+    in_scene_obstacles -= 1;
+    scenes[3] -> removeItem(obs);
+    active_obstacles.removeOne(obs);
+    obs->disconnect();
+    removed_obstacles.push_back(obs);
+    obs -> stop_movement();
+}
+
 void reglas_juego::setup_obstacles()
 {
-    for(unsigned short fila = 0; fila < max_y; fila++){
-        obstacles.push_back(new QVector<obstaculo*>);
-        QVector<obstaculo*> aux = *obstacles[fila];
-        for (unsigned short columna = 0; columna < max_x; columna++) {
-            if(random_bool(seed)) aux.push_back(new obstaculo(4, ship -> getMass()));
-            else aux.push_back(new obstaculo(random_short(1,current_scene, seed), ship -> getMass()));
-            scenes[3] -> addItem(aux[columna]);
-            aux[columna] -> setX(columna * 100);
-            aux[columna] -> setY(-1*(fila + 1) * 100);
-            obstacle_connections(aux[columna]);
-            aux[columna]->start_movement();
+    int cont = 0;
+    for(unsigned short fila = 0; fila < max_y ; fila++){
+        for(unsigned short columna = 0; columna < max_x; columna++){
+            if(random_bool(seed)) active_obstacles.push_back(new obstaculo(4, ship -> getMass(), 100));
+            else active_obstacles.push_back(new obstaculo(random_short(1,current_stage, seed), ship -> getMass(), 100));
+            scenes[3] -> addItem(active_obstacles[cont]);
+            active_obstacles[cont] -> setX(columna * 100);
+            active_obstacles[cont] -> setY(-1*(fila + 1) * 100);
+            obstacle_connections(active_obstacles[cont]);
+            cont++;
         }
     }
+    random_int_range = max_x;
 }
+
+void reglas_juego::setup_shop()
+{
+    show_image(scenes[4], ":/imagenes/Imagenes/menucompra.png");
+    unsigned int var = 0;
+    for(unsigned short cont = 0; cont < 3; cont++) {
+        shop_obstacles.push_back(new obstaculo(6 + cont, 0, 130));
+        shop_obstacles[cont] -> setX(390);
+        if(cont == 0) var = 70;
+        else if(cont == 1) var = 241;
+        else var = 413;
+        shop_obstacles[cont] -> setY(var);
+        scenes[4] -> addItem(shop_obstacles[cont]);
+    }
+}
+

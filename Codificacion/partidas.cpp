@@ -7,7 +7,6 @@ partidas::partidas(char *ruta) {
 
 partidas::~partidas()
 {
-    delete nombreArchivo;
 }
 
 void partidas::abrirArchivo()

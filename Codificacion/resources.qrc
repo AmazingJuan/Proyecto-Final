@@ -3,17 +3,31 @@
         <file>Imagenes/menuppal.png</file>
         <file>Imagenes/black_screen.jpg</file>
         <file>Imagenes/menuppal_carga.png</file>
+        <file>Imagenes/menucompra.png</file>
     </qresource>
     <qresource prefix="/fuentes">
         <file>Fuentes/pirata.ttf</file>
     </qresource>
     <qresource prefix="/gifs">
-        <file>Gifs/ship1_1.gif</file>
-        <file>Gifs/ship1_2.gif</file>
-        <file>Gifs/ship1_3.gif</file>
         <file>Gifs/obstacle_1.gif</file>
         <file>Gifs/obstacle_2.gif</file>
         <file>Gifs/obstacle_3.gif</file>
         <file>Gifs/obstacle_4.gif</file>
+        <file>Gifs/obstacle_6.gif</file>
+        <file>Gifs/obstacle_7.gif</file>
+        <file>Gifs/obstacle_8.gif</file>
+        <file>Gifs/ship1_1.gif</file>
+        <file>Gifs/ship1_2.gif</file>
+        <file>Gifs/ship1_3.gif</file>
+        <file>Gifs/ship2_1.gif</file>
+        <file>Gifs/ship2_2.gif</file>
+        <file>Gifs/ship2_3.gif</file>
+        <file>Gifs/ship4_3.gif</file>
+        <file>Gifs/ship4_2.gif</file>
+        <file>Gifs/ship4_1.gif</file>
+        <file>Gifs/ship3_3.gif</file>
+        <file>Gifs/ship3_2.gif</file>
+        <file>Gifs/ship3_1.gif</file>
     </qresource>
+    <qresource prefix="/new/prefix1"/>
 </RCC>

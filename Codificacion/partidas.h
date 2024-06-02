@@ -13,7 +13,7 @@ public:
     ~partidas();
     void abrirArchivo();
 private:
-    char *nombreArchivo;
+    QString nombreArchivo;
     QFile archivo;
 
 signals:

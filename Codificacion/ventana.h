@@ -2,6 +2,7 @@
 #define VENTANA_H
 
 #include <QMainWindow>
+#include <QScrollBar>
 #include "reglas_juego.h"
 #include "ui_Menu1.h"
 #include "ui_Menu2.h"
@@ -29,23 +30,26 @@ private:
     QWidget *menu_cargar_widget;
     QWidget *middle_message_widget;
     QWidget *stages_widget;
+    QWidget *menu_compra_widget;
 
     QVector<QGraphicsView *> forms;
     QVector<QLabel *> labels;
-    QVector<QPushButton *> buttons;
+    QVector<QPushButton *> shop_buttons;
     QVector<QWidget *> widgets;
     reglas_juego *game;
 
     QFont font;
 
     void configure_graphics(QGraphicsView *graph);
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
     void setup_game_rules();
     void setup_font();
     void conexiones();
+    void setup_buttons();
+    void wheelEvent(QWheelEvent *event) override;
 private slots:
     void close_window();
-    void change_label_text(int label_index, QString text);
+    void change_label_text(int label_index, QString text, bool is_aligned);
     void hide_widget(int number);
     void show_widget(int number);
 };

@@ -1,4 +1,5 @@
 #include "utilities.h"
+#include "qgraphicsproxywidget.h"
 #include <QLabel>
 #include <random>
 
@@ -9,14 +10,16 @@ void show_image(QGraphicsScene *scene, QString url){
     label -> setPixmap(imagen);
     label -> setFixedSize(700,700);
     label->setScaledContents(true);
-    scene -> addWidget(label);
+    scene -> addWidget(label) -> setZValue(-1);
 }
 
 unsigned short random_short(unsigned short begin, unsigned short end, unsigned int seed)
 {
-    std::default_random_engine engine(seed);
-    std::uniform_int_distribution<int> distribution(begin, end);
-    return distribution(engine);
+    if(begin == end) return begin;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distr(begin, end);
+    return distr(gen);
 }
 
 bool random_bool(unsigned int seed){

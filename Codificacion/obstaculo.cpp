@@ -1,17 +1,27 @@
 #include "obstaculo.h"
 
-obstaculo::obstaculo(unsigned short obs_number, float ship_mass) : fisicas(0, 0, ship_mass) {
-    QString aux = file_prefix;
+obstaculo::obstaculo(unsigned short obs_number, float ship_mass, unsigned short max_pixels) : fisicas(0, 0, ship_mass) {
+    QString aux = prefix;
     aux.append("_" + std::to_string(obs_number) + ".gif");
-    obstacle_animations = new animations(aux);
+    obstacle_animations = new animations(aux, max_pixels);
     speed = 1;
     crash_happening = false;
     crash_counter = 0;
     setWidget(obstacle_animations -> getMain_label());
     movement_timer = new QTimer;
+    crash_timer = new QTimer;
     connect(movement_timer, &QTimer::timeout, this, &obstaculo::handle_timeout);
+    connect(crash_timer, &QTimer::timeout, this, &obstaculo::crash_timeout);
     if(obs_number != 4) is_dangerous = true;
     else is_dangerous = false;
+}
+
+obstaculo::~obstaculo()
+{
+    delete movement_timer;
+    delete crash_timer;
+    setWidget(nullptr);
+    delete obstacle_animations;
 }
 
 
@@ -34,6 +44,9 @@ void obstaculo::handle_timeout()
 {
     QPoint aux = QPoint(x(), y() + mru(1));
     emit ask_move(aux, this, crash_happening);
+    if(y() > 700) {
+        emit surpassed_limit(this);
+    }
 }
 
 void obstaculo::crash_timeout()
@@ -57,9 +70,8 @@ void obstaculo::start_crash(QGraphicsProxyWidget *widget)
     if(widget == this && is_dangerous){
         crash_happening = true;
         movement_timer -> stop();
-        crash_timer = new QTimer;
         crash_timer -> start(25);
-        connect(crash_timer, &QTimer::timeout, this, &obstaculo::crash_timeout);
+
     }
     else if(widget == this && !is_dangerous){
         emit collect_coin();
@@ -68,6 +80,11 @@ void obstaculo::start_crash(QGraphicsProxyWidget *widget)
 
 void obstaculo::start_movement(){
     movement_timer->start(25);
+}
+
+void obstaculo::stop_movement()
+{
+    movement_timer -> stop();
 }
 
 void obstaculo::change_speed(short value)
