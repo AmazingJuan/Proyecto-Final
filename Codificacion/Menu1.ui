@@ -38,27 +38,27 @@
   <widget class="QPushButton" name="B_iniciar">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>170</y>
-     <width>75</width>
-     <height>24</height>
+     <x>197</x>
+     <y>225</y>
+     <width>306</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>iniciar</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="B_salir">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>230</y>
-     <width>75</width>
-     <height>24</height>
+     <x>197</x>
+     <y>293</y>
+     <width>306</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>salir</string>
+    <string/>
    </property>
   </widget>
  </widget>

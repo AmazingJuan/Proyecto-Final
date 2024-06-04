@@ -10,12 +10,11 @@
 class fisicas
 {
 public:
-    static const int SPEED_MAX = 6;
-    static const int SPEED_MIN = 1;
-    static const int DEFAULT_SPEED = 2;
-    fisicas(int pos_x, int pos_y, float mass);
+    fisicas(int pos_x, int pos_y, float mass, float ship_force);
     float mru(short direction);
-    float trabajo(float net_force);
+    float trabajo(short direction);
+    float shm_x(unsigned int actual_time);
+
     float getSpeed() const;
     void setSpeed(qreal newSpeed);
 
@@ -28,11 +27,22 @@ public:
     float getMass() const;
     void setMass(float newMass);
 
+    float getShip_force() const;
+    void setShip_force(float newShip_force);
+
 protected:
+    float SPEED_MAX = 4;
+    float SPEED_MIN = 1;
+    float DEFAULT_SPEED = 2;
     float pos_x;
     float pos_y;
     float mass;
     float speed;
+    float ship_force;
+    float angular_speed;
+    float initial_shm_x;
+    float amplitude;
+    float angular_velocity;
     bool crash_happening;
     unsigned short crash_counter;
 private:

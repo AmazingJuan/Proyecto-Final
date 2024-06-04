@@ -53,8 +53,8 @@ void animations::initialize_movies()
 {
     QMovie *aux = nullptr;
     QString string = file_prefix;
-    for(int cont = 0; cont < animations_number; cont++){
-        string.append("_" + std::to_string(cont+1) + ".gif");
+    for(int cont = 1; cont <= animations_number; cont++){
+        string.append("_" + std::to_string(cont) + ".gif");
         aux = new QMovie(string);
         aux -> start();
         movies.push_back(aux);

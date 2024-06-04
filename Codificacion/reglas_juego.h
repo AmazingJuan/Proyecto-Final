@@ -21,7 +21,8 @@
 #define middle_message_scene 2
 #define max_x 7
 #define max_y 7
-
+#define max_money_per_coin 150
+#define min_money_per_coin 50
 
 #define savegame_route "../Codificacion/Savedata/savegame.txt"
 
@@ -58,17 +59,22 @@ private:
 
     barco *ship;
     QVector<obstaculo*> active_obstacles;
+    QVector<obstaculo*> moving_obstacles;
     QVector<obstaculo*> removed_obstacles;
     QVector<obstaculo*> shop_obstacles;
 
     void initial_conections();
+    void stage_connections();
     void obstacle_connections(obstaculo *obstacle);
     bool is_colliding(QGraphicsProxyWidget *widget);
     bool is_outside_scene(QGraphicsProxyWidget *widget);
+    void dispose_obstacles();
+    void dispose_removed_obstacles();
     void setup_obstacles();
     void setup_stage();
     void setup_scene(QGraphicsScene *scene);
     void setup_shop();
+    void switch_scenes();
     void main_menu();
     void main_menu_load();
     void show_middle_message(QString text);
@@ -80,6 +86,7 @@ private slots:
     void loadMenu(bool dato);
     void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
     void dispatch_obstacles();
+    void handle_end_stage();
     void outside_removal(obstaculo *obs);
     void change_scene();
 public slots:
@@ -88,7 +95,8 @@ public slots:
     void cargar();
 signals:
     void crash(QGraphicsProxyWidget *widget);
-    void change_speed(short value);
+    void crash_ship(float speed);
+    void change_speed(short direction);
     void crear_archivo();
     void hide_screen(int screen);
     void show_screen(int screen);

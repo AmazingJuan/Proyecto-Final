@@ -1,6 +1,6 @@
 #include "barco.h"
 
-barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5)
+barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5, 0.1 * level)
 {
     QString aux = file_prefix + QString::number(level);
     ship_animations = new animations(aux, ship_animations_number, 100);
@@ -11,8 +11,11 @@ barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5)
     crash_happening = false;
     this -> setWidget(ship_animations -> getMain_label());
     ship_animations -> set_animation(0);
+    crash_timer = new QTimer;
+    connect(crash_timer, &QTimer::timeout, this, &barco::crash_timeout);
     setX(pos_x);
     setY(pos_y);
+
 }
 
 void barco::move(int animation)
@@ -37,7 +40,7 @@ unsigned short barco::getMoney() const
     return money;
 }
 
-void barco::setMoney(unsigned short newMoney)
+void barco::addMoney(unsigned short newMoney)
 {
     money = newMoney;
 }
@@ -55,6 +58,7 @@ void barco::setLevel(unsigned short newLevel)
 void barco::level_up(unsigned short level)
 {
     this -> level = level;
+    ship_force *= level;
     QString aux = file_prefix + QString::number(level);
     ship_animations -> change_animations(aux, 3);
 }
@@ -63,7 +67,7 @@ void barco::crash_timeout()
 {
     if(crash_counter < 40){
         QPoint aux = QPoint(x(), y() + mru(1));
-        speed = trabajo(-0.1);
+        speed = trabajo(-1);
         emit ask_move(aux, this, crash_happening);
         crash_counter++;
     }
@@ -75,19 +79,15 @@ void barco::crash_timeout()
             crash_counter = 0;
             crash_happening = false;
         }
+        speed = 2;
     }
 }
 
-void barco::start_crash(QGraphicsProxyWidget *widget)
+void barco::start_crash(float speed)
 {
     crash_happening = true;
-
-    if(crash_timer == nullptr) {
-        crash_timer = new QTimer;
-        connect(crash_timer, &QTimer::timeout, this, &barco::crash_timeout);
-    }
-    else if(!crash_timer->isActive()) crash_timer -> start(25);
-    speed = 1;
+    if(!crash_timer->isActive()) crash_timer -> start(25);
+    this -> speed = speed;
 
 }
 

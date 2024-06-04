@@ -1,6 +1,6 @@
 #include "obstaculo.h"
 
-obstaculo::obstaculo(unsigned short obs_number, float ship_mass, unsigned short max_pixels) : fisicas(0, 0, ship_mass) {
+obstaculo::obstaculo(unsigned short obs_number, float ship_mass, float ship_force, unsigned short max_pixels) : fisicas(0, 0, ship_mass, ship_force) {
     QString aux = prefix;
     aux.append("_" + std::to_string(obs_number) + ".gif");
     obstacle_animations = new animations(aux, max_pixels);
@@ -14,6 +14,7 @@ obstaculo::obstaculo(unsigned short obs_number, float ship_mass, unsigned short 
     connect(crash_timer, &QTimer::timeout, this, &obstaculo::crash_timeout);
     if(obs_number != 4) is_dangerous = true;
     else is_dangerous = false;
+    is_out_scene = false;
 }
 
 obstaculo::~obstaculo()
@@ -22,6 +23,7 @@ obstaculo::~obstaculo()
     delete crash_timer;
     setWidget(nullptr);
     delete obstacle_animations;
+    this -> disconnect();
 }
 
 
@@ -44,7 +46,10 @@ void obstaculo::handle_timeout()
 {
     QPoint aux = QPoint(x(), y() + mru(1));
     emit ask_move(aux, this, crash_happening);
-    if(y() > 700) {
+    if(y() > 700 || is_out_scene) {
+        if(is_out_scene){
+            setIs_dangerous(false);
+        }
         emit surpassed_limit(this);
     }
 }
@@ -53,7 +58,7 @@ void obstaculo::crash_timeout()
 {
     if(crash_counter < 40){
         QPoint aux = QPoint(x(), y() + mru(-1));
-        speed = trabajo(-0.1);
+        speed = trabajo(-1);
         emit ask_move(aux, this, crash_happening);
         crash_counter++;
     }
@@ -85,10 +90,21 @@ void obstaculo::start_movement(){
 void obstaculo::stop_movement()
 {
     movement_timer -> stop();
+    crash_timer -> stop();
 }
 
-void obstaculo::change_speed(short value)
+bool obstaculo::getIs_out_scene() const
 {
-    if(!crash_happening) trabajo(value);
+    return is_out_scene;
+}
+
+void obstaculo::setIs_out_scene(bool newIs_out_scene)
+{
+    is_out_scene = newIs_out_scene;
+}
+
+void obstaculo::change_speed(short direction)
+{
+    if(!crash_happening) speed = trabajo(direction);
 }
 

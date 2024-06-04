@@ -2,11 +2,12 @@
 #include <cmath>
 
 
-fisicas::fisicas(int pos_x, int pos_y, float mass)
+fisicas::fisicas(int pos_x, int pos_y, float mass, float ship_force)
 {
     this -> pos_x = pos_x;
     this -> pos_y = pos_y;
     this -> mass = mass;
+    this -> ship_force = ship_force;
     min_speed = SPEED_MIN;
     max_speed = SPEED_MAX;
     speed = DEFAULT_SPEED;
@@ -16,13 +17,17 @@ float fisicas::mru(short direction)
 {
     return speed * direction;
 }
-float fisicas::trabajo(float net_force)
+float fisicas::trabajo(short direction)
 {
-    float aux = ((2*net_force * speed)/mass) + speed * speed;
-    if(aux < min_speed) return min_speed;
-    else if(aux > max_speed) return max_speed;
+    float aux = ((2*ship_force* direction * speed)/mass) + speed * speed;
+    if(sqrt(aux) < min_speed) return min_speed;
+    else if(sqrt(aux) > max_speed) return max_speed;
+    return sqrt(aux);
+}
 
-    speed = sqrt(aux);
+float fisicas::shm_x(unsigned int actual_time)
+{
+    return amplitude*cos(angular_speed * actual_time);
 }
 
 float fisicas::getSpeed() const
@@ -63,5 +68,15 @@ float fisicas::getMass() const
 void fisicas::setMass(float newMass)
 {
     mass = newMass;
+}
+
+float fisicas::getShip_force() const
+{
+    return ship_force;
+}
+
+void fisicas::setShip_force(float newShip_force)
+{
+    ship_force = newShip_force;
 }
 

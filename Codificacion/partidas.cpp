@@ -13,10 +13,13 @@ void partidas::abrirArchivo()
 {
     archivo.setFileName(nombreArchivo);
     emit hayPartidas(archivo.exists());
+    if(archivo.exists()){
+
+    }
+
 }
 
 void partidas::creacion()
 {
-
 
 }

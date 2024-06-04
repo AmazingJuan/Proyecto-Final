@@ -17,7 +17,7 @@ public:
     void move(int key);
     animations *getShip_animations();
     unsigned short getMoney() const;
-    void setMoney(unsigned short newMoney);
+    void addMoney(unsigned short newMoney);
     unsigned short getLevel() const;
     void setLevel(unsigned short newLevel);
     void level_up(unsigned short level);
@@ -33,7 +33,7 @@ signals:
     void ask_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
     void crash_management();
 public slots:
-    void start_crash(QGraphicsProxyWidget *widget);
+    void start_crash(float speed);
     void recieve_coin();
 };
 

@@ -14,7 +14,7 @@ class obstaculo : public QGraphicsProxyWidget, public fisicas
 {
     Q_OBJECT
 public:
-    obstaculo(unsigned short obs_number, float ship_mass, unsigned short max_pixels);
+    obstaculo(unsigned short obs_number, float ship_mass, float ship_force, unsigned short max_pixels);
     ~obstaculo();
     void move(int direction);
     animations *getObstacle_animations();
@@ -22,8 +22,12 @@ public:
     void setIs_dangerous(bool newIs_dangerous);
     void start_movement();
     void stop_movement();
+    bool getIs_out_scene() const;
+    void setIs_out_scene(bool newIs_out_scene);
+
 private:
     bool is_dangerous;
+    bool is_out_scene;
     animations *obstacle_animations;
     QTimer *movement_timer;
     QTimer *crash_timer;
@@ -32,7 +36,7 @@ private slots:
     void crash_timeout();
 public slots:
     void start_crash(QGraphicsProxyWidget *widget);
-    void change_speed(short value);
+    void change_speed(short direction);
 signals:
     void collect_coin();
     void surpassed_limit(obstaculo *obs);

@@ -4,6 +4,9 @@
         <file>Imagenes/black_screen.jpg</file>
         <file>Imagenes/menuppal_carga.png</file>
         <file>Imagenes/menucompra.png</file>
+        <file>Imagenes/fondo_1.jpg</file>
+        <file>Imagenes/fondo_2.jpg</file>
+        <file>Imagenes/fondo_3.jpg</file>
     </qresource>
     <qresource prefix="/fuentes">
         <file>Fuentes/pirata.ttf</file>
