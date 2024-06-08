@@ -49,6 +49,7 @@ private:
     QTimer *game_timer;
     QTimer *change_scene_timer;
     QTimer *dispatch_obstacles_timer;
+    QTimer *wave_timer;
 
     unsigned short current_scene;
     unsigned short in_scene_obstacles;
@@ -63,7 +64,6 @@ private:
 
     barco *ship;
 
-    QVector<obstaculo*> active_obstacles;
     QVector<obstaculo*> moving_obstacles;
     QVector<obstaculo*> removed_obstacles;
     QVector<obstaculo*> shop_obstacles;
@@ -85,14 +85,14 @@ private:
     void show_middle_message(QString text);
     void handle_menu_compra();
     void update_shop(unsigned short blocked_buttons);
-private slots:
+public slots:
     void loadMenu(bool dato);
     void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
     void dispatch_obstacles();
+    void wave_event();
     void handle_end_stage();
     void outside_removal(obstaculo *obs);
     void change_scene();
-public slots:
     void manage_shop_buttons();
     void iniciar();
     void cargar();

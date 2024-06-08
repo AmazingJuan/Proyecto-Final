@@ -8,6 +8,7 @@ fisicas::fisicas(int pos_x, int pos_y, float mass, float ship_force)
     this -> pos_y = pos_y;
     this -> mass = mass;
     this -> ship_force = ship_force;
+    phase = M_PI / 2;
     min_speed = SPEED_MIN;
     max_speed = SPEED_MAX;
     speed = DEFAULT_SPEED;
@@ -28,7 +29,8 @@ float fisicas::trabajo(short direction)
 float fisicas::shm_x(unsigned int actual_time)
 {
     float omega = 2 * M_PI * frequence;
-    return amplitude*cos(omega * (actual_time) + phase);
+    double var = initial_x + amplitude*cos(omega * float(actual_time)/1000 + phase);
+    return var;
 }
 
 float fisicas::getSpeed() const
@@ -86,4 +88,8 @@ void fisicas::calculate_phase(float initial_x)
     double hola = acos(initial_x/amplitude);
     phase = hola;
 }
+
+void fisicas::mcu(){
+
+};
 

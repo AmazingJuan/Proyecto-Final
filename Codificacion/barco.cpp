@@ -69,8 +69,15 @@ void barco::level_up(unsigned short level)
 {
     this -> level = level;
     ship_force *= level;
+    frequence -= 0.25;
     QString aux = file_prefix + QString::number(level);
     ship_animations -> change_animations(aux, 3);
+}
+
+void barco::stop_movement()
+{
+    crash_timer -> stop();
+    shm_timer -> stop();
 }
 
 void barco::crash_timeout()
@@ -95,7 +102,7 @@ void barco::crash_timeout()
 
 void barco::shm_timeout()
 {
-    if(shm_counter < 100){
+    if(shm_counter < 600){
         shm_counter += 1;
         QPoint aux = QPoint(shm_x(shm_counter), y());
         emit ask_move(aux, this, shm_happening);
@@ -115,8 +122,9 @@ void barco::start_crash(float speed)
 void barco::start_shm()
 {
     shm_happening = true;
-    amplitude = 700 - x();
+    initial_x = x();
+    amplitude = x();
     calculate_phase(this -> x());
-    if(!shm_timer->isActive()) shm_timer -> start(50);
+    if(!shm_timer->isActive()) shm_timer -> start(25);
 }
 

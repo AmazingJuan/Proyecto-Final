@@ -14,6 +14,7 @@ public:
     float mru(short direction);
     float trabajo(short direction);
     float shm_x(unsigned int actual_time);
+    void mcu();
 
     float getSpeed() const;
     void setSpeed(float newSpeed);
@@ -35,13 +36,20 @@ protected:
     const float SPEED_MIN = 1;
     const float DEFAULT_SPEED = 2;
 
-    //
-    const float frequence = 0.01;
+    //MAS
+    float frequence = 1.5;
     double phase;
     float amplitude;
+    float initial_x;
+
+    //MCU
+    float center_x;
+    float center_y;
+    float angle;
+    float radius = 50;
 
 
-
+    //MRU / TRABAJO
     float pos_x;
     float pos_y;
     float mass;

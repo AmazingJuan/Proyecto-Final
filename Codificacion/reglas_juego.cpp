@@ -12,6 +12,7 @@ reglas_juego::reglas_juego(QVector<QGraphicsView *> &graphics, QVector<QPushButt
     current_stage = 1;
     current_scene = -1;
     change_scene_timer = new QTimer;
+    wave_timer = new QTimer;
     game_timer = new QTimer;
     dispatch_obstacles_timer = new QTimer;
     interfaces = graphics;
@@ -119,6 +120,7 @@ void reglas_juego::change_scene()
     change_scene_timer -> stop();
     if(current_scene == 3){
         game_timer->start(60000);
+        if(current_stage >= 2 ) wave_timer -> start(30000);
         setup_stage();
     }
 }
@@ -157,16 +159,23 @@ void reglas_juego::try_move(QPoint pos, QGraphicsProxyWidget *widget, bool crash
 
 void reglas_juego::dispatch_obstacles()
 {
-    if(in_scene_obstacles < (current_stage + 1) && active_obstacles.size() != 0){
-        unsigned short random = random_short(0, random_int_range, seed);
-        active_obstacles[random]->start_movement();
-        moving_obstacles.push_back(active_obstacles[random]);
-        active_obstacles.removeOne(active_obstacles[random]);
+    if(in_scene_obstacles < (current_stage + 1)){
+        unsigned short columna = random_short(0, 6, seed);
+        if(random_bool(seed)) moving_obstacles.push_back(new obstaculo(4, ship -> getMass(), ship -> getShip_force(), 100));
+        else moving_obstacles.push_back(new obstaculo(random_short(1,current_stage, seed), ship -> getMass(), ship -> getShip_force(), 100));
+        scenes[3] -> addItem(moving_obstacles[moving_obstacles.size() - 1]);
+        moving_obstacles[moving_obstacles.size() - 1] -> setX(columna * 100);
+        moving_obstacles[moving_obstacles.size() - 1] -> setY(-100);
+        obstacle_connections(moving_obstacles[moving_obstacles.size() - 1]);
+        moving_obstacles[moving_obstacles.size() - 1]->start_movement();
         in_scene_obstacles++;
-        if(random_int_range == 0) random_int_range = 6;
-        random_int_range -= 1;
     }
-    else if(active_obstacles.size() == 0) dispatch_obstacles_timer -> stop();
+}
+
+void reglas_juego::wave_event()
+{
+    emit shm();
+    //REPRODUCIR SONIDO DE OLEAJE
 }
 
 void reglas_juego::handle_end_stage()
@@ -175,6 +184,7 @@ void reglas_juego::handle_end_stage()
     if(current_stage != 4){
         game_timer -> stop();
         dispatch_obstacles_timer->stop();
+        ship -> stop_movement();
         dispose_obstacles();
         in_scene_obstacles = 0;
         show_middle_message(stage_messages[current_stage - 1]);
@@ -236,15 +246,16 @@ void reglas_juego::initial_conections()
     connect(this, &reglas_juego::crear_archivo, saves, &partidas::creacion);
     connect(saves, &partidas::hayPartidas, this, &reglas_juego::loadMenu);
     connect(change_scene_timer, &QTimer::timeout, this, &reglas_juego::change_scene);
+    connect(dispatch_obstacles_timer, &QTimer::timeout, this, &reglas_juego::dispatch_obstacles);
+    connect(wave_timer, &QTimer::timeout, this, &reglas_juego::wave_event);
+    connect(game_timer, &QTimer::timeout, this, &::reglas_juego::handle_end_stage);
 }
 
 void reglas_juego::stage_connections()
 {
-    connect(dispatch_obstacles_timer, &QTimer::timeout, this, &reglas_juego::dispatch_obstacles);
     connect(ship, &barco::ask_move, this, &reglas_juego::try_move);
     connect(this, &reglas_juego::shm, ship, &barco::start_shm);
     connect(this, &reglas_juego::crash_ship, ship, &barco::start_crash);
-    connect(game_timer, &QTimer::timeout, this, &::reglas_juego::handle_end_stage);
 }
 
 bool reglas_juego::is_colliding(QGraphicsProxyWidget *widget)
@@ -265,13 +276,6 @@ bool reglas_juego::is_colliding(QGraphicsProxyWidget *widget)
 
 void reglas_juego::dispose_obstacles()
 {
-    for(int cont = active_obstacles.size() - 1; cont >= 0; cont--){
-        active_obstacles[cont] -> stop_movement();
-        scenes[3]-> removeItem(active_obstacles[cont]);
-        removed_obstacles.push_back(active_obstacles[cont]);
-        active_obstacles.removeOne(active_obstacles[cont]);
-    }
-
     for(int cont = moving_obstacles.size() - 1; cont >= 0; cont--){
         moving_obstacles[cont] -> stop_movement();
         scenes[3]-> removeItem(moving_obstacles[cont]);
@@ -299,22 +303,7 @@ void reglas_juego::outside_removal(obstaculo *obs)
     obs -> stop_movement();
 }
 
-void reglas_juego::setup_obstacles()
-{
-    int cont = 0;
-    for(unsigned short fila = 0; fila < max_y ; fila++){
-        for(unsigned short columna = 0; columna < max_x; columna++){
-            if(random_bool(seed)) active_obstacles.push_back(new obstaculo(4, ship -> getMass(), ship -> getShip_force(), 100));
-            else active_obstacles.push_back(new obstaculo(random_short(1,current_stage, seed), ship -> getMass(), ship -> getShip_force(), 100));
-            scenes[3] -> addItem(active_obstacles[cont]);
-            active_obstacles[cont] -> setX(columna * 100);
-            active_obstacles[cont] -> setY(-1*(fila + 1) * 100);
-            obstacle_connections(active_obstacles[cont]);
-            cont++;
-        }
-    }
-    random_int_range = max_x;
-}
+
 
 void reglas_juego::setup_stage()
 {
@@ -322,12 +311,14 @@ void reglas_juego::setup_stage()
         ship = new barco(1, 300 , 400);
         scenes[3] -> addItem(ship);
     }
+    else{
+        ship -> setX(300);
+        ship -> setY(400);
+    }
     show_image(scenes[3], ":/imagenes/Imagenes/fondo_" + QString::number(current_stage) + ".jpg");
-    setup_obstacles();
     update_shop(ship -> getLevel() - 1);
     dispatch_obstacles_timer -> start(4000);
     stage_connections();
-    emit shm();
 }
 
 void reglas_juego::setup_shop()

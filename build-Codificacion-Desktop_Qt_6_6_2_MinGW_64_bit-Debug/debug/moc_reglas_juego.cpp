@@ -64,6 +64,7 @@ constexpr auto qt_meta_stringdata_CLASSreglas_juegoENDCLASS = QtMocHelpers::stri
     "future_pos",
     "crash_happening",
     "dispatch_obstacles",
+    "wave_event",
     "handle_end_stage",
     "outside_removal",
     "obstaculo*",
@@ -75,7 +76,7 @@ constexpr auto qt_meta_stringdata_CLASSreglas_juegoENDCLASS = QtMocHelpers::stri
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t {
-    uint offsetsAndSizes[66];
+    uint offsetsAndSizes[68];
     char stringdata0[13];
     char stringdata1[6];
     char stringdata2[1];
@@ -101,14 +102,15 @@ struct qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t {
     char stringdata22[11];
     char stringdata23[16];
     char stringdata24[19];
-    char stringdata25[17];
-    char stringdata26[16];
-    char stringdata27[11];
-    char stringdata28[4];
-    char stringdata29[13];
-    char stringdata30[20];
-    char stringdata31[8];
-    char stringdata32[7];
+    char stringdata25[11];
+    char stringdata26[17];
+    char stringdata27[16];
+    char stringdata28[11];
+    char stringdata29[4];
+    char stringdata30[13];
+    char stringdata31[20];
+    char stringdata32[8];
+    char stringdata33[7];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -139,14 +141,15 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t qt_meta_
         QT_MOC_LITERAL(221, 10),  // "future_pos"
         QT_MOC_LITERAL(232, 15),  // "crash_happening"
         QT_MOC_LITERAL(248, 18),  // "dispatch_obstacles"
-        QT_MOC_LITERAL(267, 16),  // "handle_end_stage"
-        QT_MOC_LITERAL(284, 15),  // "outside_removal"
-        QT_MOC_LITERAL(300, 10),  // "obstaculo*"
-        QT_MOC_LITERAL(311, 3),  // "obs"
-        QT_MOC_LITERAL(315, 12),  // "change_scene"
-        QT_MOC_LITERAL(328, 19),  // "manage_shop_buttons"
-        QT_MOC_LITERAL(348, 7),  // "iniciar"
-        QT_MOC_LITERAL(356, 6)   // "cargar"
+        QT_MOC_LITERAL(267, 10),  // "wave_event"
+        QT_MOC_LITERAL(278, 16),  // "handle_end_stage"
+        QT_MOC_LITERAL(295, 15),  // "outside_removal"
+        QT_MOC_LITERAL(311, 10),  // "obstaculo*"
+        QT_MOC_LITERAL(322, 3),  // "obs"
+        QT_MOC_LITERAL(326, 12),  // "change_scene"
+        QT_MOC_LITERAL(339, 19),  // "manage_shop_buttons"
+        QT_MOC_LITERAL(359, 7),  // "iniciar"
+        QT_MOC_LITERAL(367, 6)   // "cargar"
     },
     "reglas_juego",
     "crash",
@@ -173,6 +176,7 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSreglas_juegoENDCLASS_t qt_meta_
     "future_pos",
     "crash_happening",
     "dispatch_obstacles",
+    "wave_event",
     "handle_end_stage",
     "outside_removal",
     "obstaculo*",
@@ -192,7 +196,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSreglas_juegoENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -200,26 +204,27 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSreglas_juegoENDCLASS[] = {
        9,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,  122,    2, 0x06,    1 /* Public */,
-       5,    0,  125,    2, 0x06,    3 /* Public */,
-       6,    1,  126,    2, 0x06,    4 /* Public */,
-       8,    1,  129,    2, 0x06,    6 /* Public */,
-      10,    0,  132,    2, 0x06,    8 /* Public */,
-      11,    1,  133,    2, 0x06,    9 /* Public */,
-      13,    1,  136,    2, 0x06,   11 /* Public */,
-      14,    3,  139,    2, 0x06,   13 /* Public */,
-      18,    0,  146,    2, 0x06,   17 /* Public */,
+       1,    1,  128,    2, 0x06,    1 /* Public */,
+       5,    0,  131,    2, 0x06,    3 /* Public */,
+       6,    1,  132,    2, 0x06,    4 /* Public */,
+       8,    1,  135,    2, 0x06,    6 /* Public */,
+      10,    0,  138,    2, 0x06,    8 /* Public */,
+      11,    1,  139,    2, 0x06,    9 /* Public */,
+      13,    1,  142,    2, 0x06,   11 /* Public */,
+      14,    3,  145,    2, 0x06,   13 /* Public */,
+      18,    0,  152,    2, 0x06,   17 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      19,    1,  147,    2, 0x08,   18 /* Private */,
-      21,    3,  150,    2, 0x08,   20 /* Private */,
-      24,    0,  157,    2, 0x08,   24 /* Private */,
-      25,    0,  158,    2, 0x08,   25 /* Private */,
-      26,    1,  159,    2, 0x08,   26 /* Private */,
-      29,    0,  162,    2, 0x08,   28 /* Private */,
-      30,    0,  163,    2, 0x0a,   29 /* Public */,
-      31,    0,  164,    2, 0x0a,   30 /* Public */,
-      32,    0,  165,    2, 0x0a,   31 /* Public */,
+      19,    1,  153,    2, 0x0a,   18 /* Public */,
+      21,    3,  156,    2, 0x0a,   20 /* Public */,
+      24,    0,  163,    2, 0x0a,   24 /* Public */,
+      25,    0,  164,    2, 0x0a,   25 /* Public */,
+      26,    0,  165,    2, 0x0a,   26 /* Public */,
+      27,    1,  166,    2, 0x0a,   27 /* Public */,
+      30,    0,  169,    2, 0x0a,   29 /* Public */,
+      31,    0,  170,    2, 0x0a,   30 /* Public */,
+      32,    0,  171,    2, 0x0a,   31 /* Public */,
+      33,    0,  172,    2, 0x0a,   32 /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -237,7 +242,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSreglas_juegoENDCLASS[] = {
     QMetaType::Void, QMetaType::QPoint, 0x80000000 | 3, QMetaType::Bool,   22,    4,   23,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 28,   29,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -291,6 +297,8 @@ Q_CONSTINIT const QMetaObject reglas_juego::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         // method 'dispatch_obstacles'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'wave_event'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handle_end_stage'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'outside_removal'
@@ -326,12 +334,13 @@ void reglas_juego::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 9: _t->loadMenu((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
         case 10: _t->try_move((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QGraphicsProxyWidget*>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[3]))); break;
         case 11: _t->dispatch_obstacles(); break;
-        case 12: _t->handle_end_stage(); break;
-        case 13: _t->outside_removal((*reinterpret_cast< std::add_pointer_t<obstaculo*>>(_a[1]))); break;
-        case 14: _t->change_scene(); break;
-        case 15: _t->manage_shop_buttons(); break;
-        case 16: _t->iniciar(); break;
-        case 17: _t->cargar(); break;
+        case 12: _t->wave_event(); break;
+        case 13: _t->handle_end_stage(); break;
+        case 14: _t->outside_removal((*reinterpret_cast< std::add_pointer_t<obstaculo*>>(_a[1]))); break;
+        case 15: _t->change_scene(); break;
+        case 16: _t->manage_shop_buttons(); break;
+        case 17: _t->iniciar(); break;
+        case 18: _t->cargar(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -351,7 +360,7 @@ void reglas_juego::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
                 *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QGraphicsProxyWidget* >(); break;
             }
             break;
-        case 13:
+        case 14:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 0:
@@ -446,13 +455,13 @@ int reglas_juego::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 19;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 19;
     }
     return _id;
 }

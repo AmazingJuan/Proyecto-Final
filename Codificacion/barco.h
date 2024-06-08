@@ -22,6 +22,7 @@ public:
     unsigned short getLevel() const;
     void setLevel(unsigned short newLevel);
     void level_up(unsigned short level);
+    void stop_movement();
 private:
     int actual_animation;
     unsigned int money;
