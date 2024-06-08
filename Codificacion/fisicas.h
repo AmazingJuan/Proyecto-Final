@@ -16,7 +16,7 @@ public:
     float shm_x(unsigned int actual_time);
 
     float getSpeed() const;
-    void setSpeed(qreal newSpeed);
+    void setSpeed(float newSpeed);
 
     float getPos_x() const;
     void setPos_x(float newPos_x);
@@ -32,19 +32,28 @@ public:
 
 protected:
     float SPEED_MAX = 4;
-    float SPEED_MIN = 1;
-    float DEFAULT_SPEED = 2;
+    const float SPEED_MIN = 1;
+    const float DEFAULT_SPEED = 2;
+
+    //
+    const float frequence = 0.01;
+    double phase;
+    float amplitude;
+
+
+
     float pos_x;
     float pos_y;
     float mass;
     float speed;
     float ship_force;
-    float angular_speed;
-    float initial_shm_x;
-    float amplitude;
-    float angular_velocity;
+
     bool crash_happening;
+    bool shm_happening;
     unsigned short crash_counter;
+    unsigned short shm_counter;
+
+    void calculate_phase(float initial_x);
 private:
     qreal max_speed;
     qreal min_speed;

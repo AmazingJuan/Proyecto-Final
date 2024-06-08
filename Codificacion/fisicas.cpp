@@ -27,7 +27,8 @@ float fisicas::trabajo(short direction)
 
 float fisicas::shm_x(unsigned int actual_time)
 {
-    return amplitude*cos(angular_speed * actual_time);
+    float omega = 2 * M_PI * frequence;
+    return amplitude*cos(omega * (actual_time) + phase);
 }
 
 float fisicas::getSpeed() const
@@ -35,7 +36,7 @@ float fisicas::getSpeed() const
     return speed;
 }
 
-void fisicas::setSpeed(qreal newSpeed)
+void fisicas::setSpeed(float newSpeed)
 {
     speed = newSpeed;
 }
@@ -78,5 +79,11 @@ float fisicas::getShip_force() const
 void fisicas::setShip_force(float newShip_force)
 {
     ship_force = newShip_force;
+}
+
+void fisicas::calculate_phase(float initial_x)
+{
+    double hola = acos(initial_x/amplitude);
+    phase = hola;
 }
 

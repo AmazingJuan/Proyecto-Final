@@ -48,9 +48,9 @@ ventana::ventana(QWidget *parent)
 
 ventana::~ventana()
 {
+    delete game;
     delete menu_nuevo_widget;
     delete menu_cargar_widget;
-    delete game;
 }
 
 void ventana::configure_graphics(QGraphicsView *graph)

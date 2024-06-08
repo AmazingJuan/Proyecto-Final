@@ -25,12 +25,11 @@
         <file>Gifs/ship2_1.gif</file>
         <file>Gifs/ship2_2.gif</file>
         <file>Gifs/ship2_3.gif</file>
-        <file>Gifs/ship4_3.gif</file>
-        <file>Gifs/ship4_2.gif</file>
-        <file>Gifs/ship4_1.gif</file>
-        <file>Gifs/ship3_3.gif</file>
-        <file>Gifs/ship3_2.gif</file>
         <file>Gifs/ship3_1.gif</file>
+        <file>Gifs/ship3_2.gif</file>
+        <file>Gifs/ship3_3.gif</file>
+        <file>Gifs/ship4_1.gif</file>
+        <file>Gifs/ship4_2.gif</file>
+        <file>Gifs/ship4_3.gif</file>
     </qresource>
-    <qresource prefix="/new/prefix1"/>
 </RCC>

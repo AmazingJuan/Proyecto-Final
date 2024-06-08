@@ -27,7 +27,7 @@ public:
     {
         if (MiddleMessage->objectName().isEmpty())
             MiddleMessage->setObjectName("MiddleMessage");
-        MiddleMessage->resize(600, 700);
+        MiddleMessage->resize(700, 700);
         graphicsView = new QGraphicsView(MiddleMessage);
         graphicsView->setObjectName("graphicsView");
         graphicsView->setGeometry(QRect(0, 0, 700, 700));

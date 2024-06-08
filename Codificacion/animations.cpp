@@ -24,9 +24,10 @@ animations::animations(QString route, unsigned short max_pixels)
 animations::~animations()
 {
     for(int cont = movies.size() - 1; cont >= 0; cont--) {
+        movies[cont]->stop();
         delete movies[cont];
-        movies.remove(cont);
     }
+    movies.clear();
     delete main_label;
 }
 
@@ -34,7 +35,6 @@ QLabel *animations::getMain_label()
 {
     return main_label;
 }
-
 void animations::change_animations(QString file_prefix, int number_animations)
 {
     this -> file_prefix = file_path + file_prefix;
@@ -51,13 +51,11 @@ void animations::set_animation(unsigned short animation_number)
 
 void animations::initialize_movies()
 {
-    QMovie *aux = nullptr;
     QString string = file_prefix;
     for(int cont = 1; cont <= animations_number; cont++){
         string.append("_" + std::to_string(cont) + ".gif");
-        aux = new QMovie(string);
-        aux -> start();
-        movies.push_back(aux);
+        movies.push_back(new QMovie(string));
+            movies[movies.size() - 1] -> start();
         string = file_prefix;
     }
     main_label->setMovie(movies[0]);

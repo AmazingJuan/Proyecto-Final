@@ -5,22 +5,32 @@ barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5,
     QString aux = file_prefix + QString::number(level);
     ship_animations = new animations(aux, ship_animations_number, 100);
     crash_counter = 0;
+    shm_counter = 0;
     money = 8500;
     this -> level = level;
-    crash_timer = nullptr;
     crash_happening = false;
+    shm_happening = false;
     this -> setWidget(ship_animations -> getMain_label());
     ship_animations -> set_animation(0);
     crash_timer = new QTimer;
+    shm_timer = new QTimer;
     connect(crash_timer, &QTimer::timeout, this, &barco::crash_timeout);
+    connect(shm_timer, &QTimer::timeout, this, &barco::shm_timeout);
     setX(pos_x);
     setY(pos_y);
 
 }
 
+barco::~barco()
+{
+    setWidget(nullptr);
+    crash_timer->disconnect();
+    delete ship_animations;
+}
+
+
 void barco::move(int animation)
 {
-
     ship_animations -> set_animation(animation);
     if(animation == 1){
         emit ask_move(QPoint(x() + mru(-1), y()), this, crash_happening);
@@ -42,7 +52,7 @@ unsigned short barco::getMoney() const
 
 void barco::addMoney(unsigned short newMoney)
 {
-    money = newMoney;
+    money += newMoney;
 }
 
 unsigned short barco::getLevel() const
@@ -83,15 +93,30 @@ void barco::crash_timeout()
     }
 }
 
+void barco::shm_timeout()
+{
+    if(shm_counter < 100){
+        shm_counter += 1;
+        QPoint aux = QPoint(shm_x(shm_counter), y());
+        emit ask_move(aux, this, shm_happening);
+    }
+    else{
+        shm_timer -> stop();
+    }
+}
+
 void barco::start_crash(float speed)
 {
     crash_happening = true;
     if(!crash_timer->isActive()) crash_timer -> start(25);
     this -> speed = speed;
-
 }
 
-void barco::recieve_coin()
+void barco::start_shm()
 {
-    money += 10;
+    shm_happening = true;
+    amplitude = 700 - x();
+    calculate_phase(this -> x());
+    if(!shm_timer->isActive()) shm_timer -> start(50);
 }
+

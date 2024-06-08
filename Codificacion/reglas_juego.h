@@ -23,6 +23,10 @@
 #define max_y 7
 #define max_money_per_coin 150
 #define min_money_per_coin 50
+#define stage_1 "En el inicio de su viaje,\nCristóbal Colón y su tripulación\nhicieron una parada estratégica\nen las Islas Canarias. Este\narchipiélago fue el último punto\nde abastecimiento antes de\nadentrarse en el vasto océano\nAtlántico, donde comenzaron\nsu audaz travesía hacia\nlo desconocido."
+#define stage_2 "Después de semanas de\nnavegación, Colón llegó a\nlas Islas del Caribe, marcando\nun hito monumental en la historia.\nEste encuentro inicial con el\nNuevo Mundo reveló tierras\nexuberantes y culturas desconocidas,\nexpandiendo el horizonte de\nla exploración europea."
+#define stage_3 "Finalmente, el viaje de\ndescubrimiento culminó en el\narchipiélago de las Bahamas.\nEl 12 de octubre de 1492, Colón\ndesembarcó en una de estas islas,\na la que llamó San Salvador.\nEste evento histórico señaló el\nprimer contacto europeo con el\ncontinente americano, cambiando\npara siempre el curso de la\nhistoria mundial."
+
 
 #define savegame_route "../Codificacion/Savedata/savegame.txt"
 
@@ -58,16 +62,17 @@ private:
     QMediaPlayer *reproductor;
 
     barco *ship;
+
     QVector<obstaculo*> active_obstacles;
     QVector<obstaculo*> moving_obstacles;
     QVector<obstaculo*> removed_obstacles;
     QVector<obstaculo*> shop_obstacles;
+    QVector<QString> stage_messages;
 
     void initial_conections();
     void stage_connections();
     void obstacle_connections(obstaculo *obstacle);
     bool is_colliding(QGraphicsProxyWidget *widget);
-    bool is_outside_scene(QGraphicsProxyWidget *widget);
     void dispose_obstacles();
     void dispose_removed_obstacles();
     void setup_obstacles();
@@ -78,8 +83,6 @@ private:
     void main_menu();
     void main_menu_load();
     void show_middle_message(QString text);
-    void hide_buttons(QVector<QPushButton *> &buttons);
-    void show_buttons(QVector<QPushButton *> &buttons);
     void handle_menu_compra();
     void update_shop(unsigned short blocked_buttons);
 private slots:
@@ -95,6 +98,7 @@ public slots:
     void cargar();
 signals:
     void crash(QGraphicsProxyWidget *widget);
+    void shm();
     void crash_ship(float speed);
     void change_speed(short direction);
     void crear_archivo();

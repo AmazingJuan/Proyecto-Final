@@ -27,7 +27,6 @@ public:
 
 private:
     bool is_dangerous;
-    bool is_out_scene;
     animations *obstacle_animations;
     QTimer *movement_timer;
     QTimer *crash_timer;
@@ -43,5 +42,4 @@ signals:
     void crash_management();
     void ask_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
 };
-
 #endif // OBSTACULO_H

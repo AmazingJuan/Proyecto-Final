@@ -14,7 +14,6 @@ obstaculo::obstaculo(unsigned short obs_number, float ship_mass, float ship_forc
     connect(crash_timer, &QTimer::timeout, this, &obstaculo::crash_timeout);
     if(obs_number != 4) is_dangerous = true;
     else is_dangerous = false;
-    is_out_scene = false;
 }
 
 obstaculo::~obstaculo()
@@ -46,10 +45,7 @@ void obstaculo::handle_timeout()
 {
     QPoint aux = QPoint(x(), y() + mru(1));
     emit ask_move(aux, this, crash_happening);
-    if(y() > 700 || is_out_scene) {
-        if(is_out_scene){
-            setIs_dangerous(false);
-        }
+    if(y() > 700) {
         emit surpassed_limit(this);
     }
 }
@@ -91,16 +87,6 @@ void obstaculo::stop_movement()
 {
     movement_timer -> stop();
     crash_timer -> stop();
-}
-
-bool obstaculo::getIs_out_scene() const
-{
-    return is_out_scene;
-}
-
-void obstaculo::setIs_out_scene(bool newIs_out_scene)
-{
-    is_out_scene = newIs_out_scene;
 }
 
 void obstaculo::change_speed(short direction)

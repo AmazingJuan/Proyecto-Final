@@ -14,6 +14,7 @@ class barco : public QGraphicsProxyWidget, public fisicas
     Q_OBJECT
 public:
     barco(int level, int pos_x, int pos_y);
+    ~barco();
     void move(int key);
     animations *getShip_animations();
     unsigned short getMoney() const;
@@ -27,14 +28,17 @@ private:
     unsigned  short level;
     animations *ship_animations;
     QTimer *crash_timer;
+    QTimer *shm_timer;
 private slots:
     void crash_timeout();
+    void shm_timeout();
 signals:
     void ask_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
     void crash_management();
 public slots:
     void start_crash(float speed);
-    void recieve_coin();
+    void start_shm();
+
 };
 
 #endif // BARCO_H
