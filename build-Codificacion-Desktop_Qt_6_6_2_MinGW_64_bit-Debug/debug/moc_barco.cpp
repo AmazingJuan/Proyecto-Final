@@ -49,13 +49,15 @@ constexpr auto qt_meta_stringdata_CLASSbarcoENDCLASS = QtMocHelpers::stringData(
     "crash_management",
     "crash_timeout",
     "shm_timeout",
+    "mcu_timeout",
     "start_crash",
     "speed",
-    "start_shm"
+    "start_shm",
+    "start_mcu"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSbarcoENDCLASS_t {
-    uint offsetsAndSizes[26];
+    uint offsetsAndSizes[30];
     char stringdata0[6];
     char stringdata1[9];
     char stringdata2[1];
@@ -67,8 +69,10 @@ struct qt_meta_stringdata_CLASSbarcoENDCLASS_t {
     char stringdata8[14];
     char stringdata9[12];
     char stringdata10[12];
-    char stringdata11[6];
-    char stringdata12[10];
+    char stringdata11[12];
+    char stringdata12[6];
+    char stringdata13[10];
+    char stringdata14[10];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSbarcoENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -84,9 +88,11 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSbarcoENDCLASS_t qt_meta_stringd
         QT_MOC_LITERAL(72, 16),  // "crash_management"
         QT_MOC_LITERAL(89, 13),  // "crash_timeout"
         QT_MOC_LITERAL(103, 11),  // "shm_timeout"
-        QT_MOC_LITERAL(115, 11),  // "start_crash"
-        QT_MOC_LITERAL(127, 5),  // "speed"
-        QT_MOC_LITERAL(133, 9)   // "start_shm"
+        QT_MOC_LITERAL(115, 11),  // "mcu_timeout"
+        QT_MOC_LITERAL(127, 11),  // "start_crash"
+        QT_MOC_LITERAL(139, 5),  // "speed"
+        QT_MOC_LITERAL(145, 9),  // "start_shm"
+        QT_MOC_LITERAL(155, 9)   // "start_mcu"
     },
     "barco",
     "ask_move",
@@ -98,9 +104,11 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSbarcoENDCLASS_t qt_meta_stringd
     "crash_management",
     "crash_timeout",
     "shm_timeout",
+    "mcu_timeout",
     "start_crash",
     "speed",
-    "start_shm"
+    "start_shm",
+    "start_mcu"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -112,7 +120,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSbarcoENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -120,14 +128,16 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSbarcoENDCLASS[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,   50,    2, 0x06,    1 /* Public */,
-       7,    0,   57,    2, 0x06,    5 /* Public */,
+       1,    3,   62,    2, 0x06,    1 /* Public */,
+       7,    0,   69,    2, 0x06,    5 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       8,    0,   58,    2, 0x08,    6 /* Private */,
-       9,    0,   59,    2, 0x08,    7 /* Private */,
-      10,    1,   60,    2, 0x0a,    8 /* Public */,
-      12,    0,   63,    2, 0x0a,   10 /* Public */,
+       8,    0,   70,    2, 0x08,    6 /* Private */,
+       9,    0,   71,    2, 0x08,    7 /* Private */,
+      10,    0,   72,    2, 0x08,    8 /* Private */,
+      11,    1,   73,    2, 0x0a,    9 /* Public */,
+      13,    0,   76,    2, 0x0a,   11 /* Public */,
+      14,    0,   77,    2, 0x0a,   12 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QPoint, 0x80000000 | 4, QMetaType::Bool,    3,    5,    6,
@@ -136,7 +146,9 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSbarcoENDCLASS[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Float,   11,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Float,   12,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -162,10 +174,14 @@ Q_CONSTINIT const QMetaObject barco::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'shm_timeout'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'mcu_timeout'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'start_crash'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<float, std::false_type>,
         // method 'start_shm'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'start_mcu'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -181,8 +197,10 @@ void barco::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         case 1: _t->crash_management(); break;
         case 2: _t->crash_timeout(); break;
         case 3: _t->shm_timeout(); break;
-        case 4: _t->start_crash((*reinterpret_cast< std::add_pointer_t<float>>(_a[1]))); break;
-        case 5: _t->start_shm(); break;
+        case 4: _t->mcu_timeout(); break;
+        case 5: _t->start_crash((*reinterpret_cast< std::add_pointer_t<float>>(_a[1]))); break;
+        case 6: _t->start_shm(); break;
+        case 7: _t->start_mcu(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -236,13 +254,13 @@ int barco::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     }
     return _id;
 }

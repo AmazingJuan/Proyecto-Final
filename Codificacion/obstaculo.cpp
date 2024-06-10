@@ -5,6 +5,7 @@ obstaculo::obstaculo(unsigned short obs_number, float ship_mass, float ship_forc
     aux.append("_" + std::to_string(obs_number) + ".gif");
     obstacle_animations = new animations(aux, max_pixels);
     speed = 1;
+    if(obs_number < 4) issued_damage = 10 * obs_number;
     crash_happening = false;
     crash_counter = 0;
     setWidget(obstacle_animations -> getMain_label());
@@ -12,7 +13,11 @@ obstaculo::obstaculo(unsigned short obs_number, float ship_mass, float ship_forc
     crash_timer = new QTimer;
     connect(movement_timer, &QTimer::timeout, this, &obstaculo::handle_timeout);
     connect(crash_timer, &QTimer::timeout, this, &obstaculo::crash_timeout);
-    if(obs_number != 4) is_dangerous = true;
+    if(obs_number != 4) {
+        is_dangerous = true;
+        if(obs_number == 9) is_twister = true;
+        else is_twister = false;
+    }
     else is_dangerous = false;
 }
 
@@ -87,6 +92,26 @@ void obstaculo::stop_movement()
 {
     movement_timer -> stop();
     crash_timer -> stop();
+}
+
+bool obstaculo::getIs_twister() const
+{
+    return is_twister;
+}
+
+void obstaculo::setIs_twister(bool newIs_twister)
+{
+    is_twister = newIs_twister;
+}
+
+unsigned short obstaculo::getIssued_damage() const
+{
+    return issued_damage;
+}
+
+void obstaculo::setIssued_damage(unsigned short newIssued_damage)
+{
+    issued_damage = newIssued_damage;
 }
 
 void obstaculo::change_speed(short direction)

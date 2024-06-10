@@ -16,6 +16,7 @@
 #include "obstaculo.h"
 #include "partidas.h"
 
+#define game_duration 60
 #define main_menu_scene 0
 #define main_menu_load_scene 1
 #define middle_message_scene 2
@@ -56,6 +57,7 @@ private:
     unsigned short next_scene;
     unsigned short current_stage;
     unsigned short random_int_range;
+    unsigned short game_time_counter;
 
     unsigned int seed;
     unsigned int shop_prices[3];
@@ -85,20 +87,22 @@ private:
     void show_middle_message(QString text);
     void handle_menu_compra();
     void update_shop(unsigned short blocked_buttons);
+    void handle_end_stage();
 public slots:
     void loadMenu(bool dato);
     void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
     void dispatch_obstacles();
     void wave_event();
-    void handle_end_stage();
     void outside_removal(obstaculo *obs);
-    void change_scene();
+    void change_scene(bool twister_death);
+    void timer_changed();
     void manage_shop_buttons();
     void iniciar();
     void cargar();
 signals:
     void crash(QGraphicsProxyWidget *widget);
     void shm();
+    void mcu();
     void crash_ship(float speed);
     void change_speed(short direction);
     void crear_archivo();

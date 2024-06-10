@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -20,6 +21,8 @@ class Ui_Stage
 {
 public:
     QGraphicsView *graphicsView;
+    QLabel *L_hp;
+    QLabel *L_time;
 
     void setupUi(QWidget *Stage)
     {
@@ -29,6 +32,12 @@ public:
         graphicsView = new QGraphicsView(Stage);
         graphicsView->setObjectName("graphicsView");
         graphicsView->setGeometry(QRect(0, 0, 700, 700));
+        L_hp = new QLabel(Stage);
+        L_hp->setObjectName("L_hp");
+        L_hp->setGeometry(QRect(0, 0, 350, 50));
+        L_time = new QLabel(Stage);
+        L_time->setObjectName("L_time");
+        L_time->setGeometry(QRect(350, 0, 350, 50));
 
         retranslateUi(Stage);
 
@@ -38,6 +47,8 @@ public:
     void retranslateUi(QWidget *Stage)
     {
         Stage->setWindowTitle(QCoreApplication::translate("Stage", "Form", nullptr));
+        L_hp->setText(QString());
+        L_time->setText(QString());
     } // retranslateUi
 
 };

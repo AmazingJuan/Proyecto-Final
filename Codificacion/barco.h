@@ -23,22 +23,29 @@ public:
     void setLevel(unsigned short newLevel);
     void level_up(unsigned short level);
     void stop_movement();
+    unsigned short getHp() const;
+    void setHp(unsigned short newHp);
+
 private:
     int actual_animation;
     unsigned int money;
     unsigned  short level;
+    unsigned short hp;
     animations *ship_animations;
     QTimer *crash_timer;
     QTimer *shm_timer;
+    QTimer *mcu_timer;
 private slots:
     void crash_timeout();
     void shm_timeout();
+    void mcu_timeout();
 signals:
     void ask_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
     void crash_management();
 public slots:
     void start_crash(float speed);
     void start_shm();
+    void start_mcu();
 
 };
 

@@ -7,6 +7,7 @@ reglas_juego::reglas_juego(QVector<QGraphicsView *> &graphics, QVector<QPushButt
     ship = nullptr;
     seed = std::chrono::system_clock::now().time_since_epoch().count();
     next_scene = -1;
+    twister_death = false;
     in_scene_obstacles = 0;
     random_int_range = 0;
     current_stage = 1;
@@ -25,7 +26,6 @@ reglas_juego::reglas_juego(QVector<QGraphicsView *> &graphics, QVector<QPushButt
     stage_messages.push_back(stage_2);
     stage_messages.push_back(stage_3);
 }
-
 
 void reglas_juego::main_menu(){
     emit show_screen(main_menu_scene);
@@ -113,15 +113,27 @@ void reglas_juego::iniciar()
     next_scene = 3;
 }
 
-void reglas_juego::change_scene()
+void reglas_juego::change_scene(bool twister_death)
 {
     switch_scenes();
     current_scene = next_scene;
     change_scene_timer -> stop();
-    if(current_scene == 3){
-        game_timer->start(60000);
-        if(current_stage >= 2 ) wave_timer -> start(30000);
+    if(current_scene == 3 && !twister_death){
+        if(current_stage >= 2) wave_timer -> start(30000);
         setup_stage();
+        game_timer->start(1000);
+    }
+    else if(current_scene == 3 && twister_death){
+        //logica
+    }
+}
+
+void reglas_juego::timer_changed()
+{
+    game_time_counter--;
+    emit shoot_label_change(6, "TIEMPO RESTANTE: " + QString::number(game_time_counter), false);
+    if(game_time_counter == 0){
+        handle_end_stage();
     }
 }
 
@@ -135,25 +147,45 @@ void reglas_juego::try_move(QPoint pos, QGraphicsProxyWidget *widget, bool crash
 {
     obstaculo *cast = dynamic_cast<obstaculo *>(widget);
     bool aux = is_colliding(widget);
-    if(!crash_happening){
-        if(!aux){
+    if(pos.x() <= 600 && pos.x() >= 0){
+        if(!crash_happening){
+            if(!aux){
+                widget->setX(pos.x());
+                widget->setY(pos.y());
+            }
+            else{
+                if(cast -> getIs_dangerous()){
+                    if(cast ->getIs_twister()){
+                        dispose_obstacles();
+                        game_timer -> stop();
+                        ship -> stop_movement();
+                        emit shoot_label_change(5, "", false);
+                        emit shoot_label_change(6, "", false);
+                        show_middle_message("Vaya...");
+                    }
+                    else{
+                        if(ship -> getHp() - cast -> getIssued_damage() > 0){
+                            emit crash(widget);
+                            emit crash_ship(cast -> getSpeed());
+                            ship -> setHp(ship -> getHp() - cast -> getIssued_damage());
+                            emit shoot_label_change(5, "HP: " + QString::number(ship -> getHp()), false);
+                            //sonidito de crash
+                        }
+                        else{
+                            //gameover logic
+                        }
+                    }
+                }
+                else{
+                    outside_removal(cast);
+                    ship -> addMoney(random_short(min_money_per_coin, max_money_per_coin, seed));
+                }
+            }
+        }
+        else{
             widget->setX(pos.x());
             widget->setY(pos.y());
         }
-        else{
-            if(cast -> getIs_dangerous()){
-                emit crash(widget);
-                emit crash_ship(cast -> getSpeed());
-            }
-            else{
-                outside_removal(cast);
-                ship -> addMoney(random_short(min_money_per_coin, max_money_per_coin, seed));
-            }
-        }
-    }
-    else{
-        widget->setX(pos.x());
-        widget->setY(pos.y());
     }
 }
 
@@ -162,6 +194,7 @@ void reglas_juego::dispatch_obstacles()
     if(in_scene_obstacles < (current_stage + 1)){
         unsigned short columna = random_short(0, 6, seed);
         if(random_bool(seed)) moving_obstacles.push_back(new obstaculo(4, ship -> getMass(), ship -> getShip_force(), 100));
+        else if(current_stage == 3 && random_short(0,10,seed) >= 7) moving_obstacles.push_back(new obstaculo(9, ship -> getMass(), ship -> getShip_force(), 100));
         else moving_obstacles.push_back(new obstaculo(random_short(1,current_stage, seed), ship -> getMass(), ship -> getShip_force(), 100));
         scenes[3] -> addItem(moving_obstacles[moving_obstacles.size() - 1]);
         moving_obstacles[moving_obstacles.size() - 1] -> setX(columna * 100);
@@ -183,6 +216,7 @@ void reglas_juego::handle_end_stage()
     current_stage += 1;
     if(current_stage != 4){
         game_timer -> stop();
+        if(wave_timer -> isActive()) wave_timer -> stop();
         dispatch_obstacles_timer->stop();
         ship -> stop_movement();
         dispose_obstacles();
@@ -248,7 +282,7 @@ void reglas_juego::initial_conections()
     connect(change_scene_timer, &QTimer::timeout, this, &reglas_juego::change_scene);
     connect(dispatch_obstacles_timer, &QTimer::timeout, this, &reglas_juego::dispatch_obstacles);
     connect(wave_timer, &QTimer::timeout, this, &reglas_juego::wave_event);
-    connect(game_timer, &QTimer::timeout, this, &::reglas_juego::handle_end_stage);
+    connect(game_timer, &QTimer::timeout, this, &::reglas_juego::timer_changed);
 }
 
 void reglas_juego::stage_connections()
@@ -256,6 +290,7 @@ void reglas_juego::stage_connections()
     connect(ship, &barco::ask_move, this, &reglas_juego::try_move);
     connect(this, &reglas_juego::shm, ship, &barco::start_shm);
     connect(this, &reglas_juego::crash_ship, ship, &barco::start_crash);
+    connect(this, &reglas_juego::mcu, ship, &barco::start_mcu);
 }
 
 bool reglas_juego::is_colliding(QGraphicsProxyWidget *widget)
@@ -307,6 +342,7 @@ void reglas_juego::outside_removal(obstaculo *obs)
 
 void reglas_juego::setup_stage()
 {
+    game_time_counter = game_duration;
     if (ship == nullptr){
         ship = new barco(1, 300 , 400);
         scenes[3] -> addItem(ship);
@@ -319,6 +355,7 @@ void reglas_juego::setup_stage()
     update_shop(ship -> getLevel() - 1);
     dispatch_obstacles_timer -> start(4000);
     stage_connections();
+    emit shoot_label_change(5, QString("HP:" + QString::number(ship -> getHp())), false);
 }
 
 void reglas_juego::setup_shop()

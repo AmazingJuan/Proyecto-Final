@@ -4,18 +4,19 @@ barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5,
 {
     QString aux = file_prefix + QString::number(level);
     ship_animations = new animations(aux, ship_animations_number, 100);
-    crash_counter = 0;
-    shm_counter = 0;
     money = 8500;
     this -> level = level;
+    hp = level * 50;
     crash_happening = false;
     shm_happening = false;
     this -> setWidget(ship_animations -> getMain_label());
     ship_animations -> set_animation(0);
     crash_timer = new QTimer;
     shm_timer = new QTimer;
+    mcu_timer = new QTimer;
     connect(crash_timer, &QTimer::timeout, this, &barco::crash_timeout);
     connect(shm_timer, &QTimer::timeout, this, &barco::shm_timeout);
+    connect(mcu_timer, &QTimer::timeout, this, &barco::mcu_timeout);
     setX(pos_x);
     setY(pos_y);
 
@@ -80,6 +81,16 @@ void barco::stop_movement()
     shm_timer -> stop();
 }
 
+unsigned short barco::getHp() const
+{
+    return hp;
+}
+
+void barco::setHp(unsigned short newHp)
+{
+    hp = newHp;
+}
+
 void barco::crash_timeout()
 {
     if(crash_counter < 40){
@@ -104,7 +115,7 @@ void barco::shm_timeout()
 {
     if(shm_counter < 600){
         shm_counter += 1;
-        QPoint aux = QPoint(shm_x(shm_counter), y());
+        QPoint aux = QPoint(shm_x(float(shm_counter)/2), y());
         emit ask_move(aux, this, shm_happening);
     }
     else{
@@ -112,9 +123,21 @@ void barco::shm_timeout()
     }
 }
 
+void barco::mcu_timeout()
+{
+    if(radius > 50){
+        mcu_counter++;
+        emit ask_move(mcu(), this, shm_happening);
+    }
+    else{
+        mcu_timer -> stop();
+    }
+}
+
 void barco::start_crash(float speed)
 {
     crash_happening = true;
+    crash_counter = 0;
     if(!crash_timer->isActive()) crash_timer -> start(25);
     this -> speed = speed;
 }
@@ -122,9 +145,19 @@ void barco::start_crash(float speed)
 void barco::start_shm()
 {
     shm_happening = true;
+    shm_counter = 0;
     initial_x = x();
-    amplitude = x();
-    calculate_phase(this -> x());
+    amplitude = 250;
+    calculate_initial_time();
     if(!shm_timer->isActive()) shm_timer -> start(25);
+}
+
+void barco::start_mcu(){
+    center_x = 300;
+    center_y = 300;
+    mcu_counter = 0;
+    angle = 0;
+    mcu_speed = 1;
+    if(!mcu_timer -> isActive()) mcu_timer -> start(25);
 }
 

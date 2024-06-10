@@ -29,6 +29,8 @@ ventana::ventana(QWidget *parent)
     labels.push_back(menu_compra.L_2);
     labels.push_back(menu_compra.L_3);
     labels.push_back(menu_compra.L_C);
+    labels.push_back(stages.L_hp);
+    labels.push_back(stages.L_time);
 
     shop_buttons.push_back(menu_compra.B_1);
     shop_buttons.push_back(menu_compra.B_2);

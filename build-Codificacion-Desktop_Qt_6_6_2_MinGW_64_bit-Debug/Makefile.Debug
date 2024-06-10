@@ -147,6 +147,7 @@ debug/qrc_resources.cpp: ../Codificacion/resources.qrc \
 		../Codificacion/Gifs/ship3_2.gif \
 		../Codificacion/Gifs/ship3_1.gif \
 		../Codificacion/Gifs/obstacle_7.gif \
+		../Codificacion/Gifs/obstacle_9.gif \
 		../Codificacion/Gifs/ship1_3.gif \
 		../Codificacion/Gifs/ship4_1.gif \
 		../Codificacion/Gifs/ship1_1.gif \

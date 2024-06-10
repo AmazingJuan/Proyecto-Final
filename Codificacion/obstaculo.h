@@ -25,8 +25,16 @@ public:
     bool getIs_out_scene() const;
     void setIs_out_scene(bool newIs_out_scene);
 
+    bool getIs_twister() const;
+    void setIs_twister(bool newIs_twister);
+
+    unsigned short getIssued_damage() const;
+    void setIssued_damage(unsigned short newIssued_damage);
+
 private:
     bool is_dangerous;
+    bool is_twister;
+    unsigned short issued_damage;
     animations *obstacle_animations;
     QTimer *movement_timer;
     QTimer *crash_timer;

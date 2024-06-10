@@ -14,7 +14,7 @@ public:
     float mru(short direction);
     float trabajo(short direction);
     float shm_x(unsigned int actual_time);
-    void mcu();
+    QPoint mcu();
 
     float getSpeed() const;
     void setSpeed(float newSpeed);
@@ -37,16 +37,19 @@ protected:
     const float DEFAULT_SPEED = 2;
 
     //MAS
-    float frequence = 1.5;
-    double phase;
-    float amplitude;
-    float initial_x;
+    float frequence = 0.05;
+    double phase = M_PI / 2;
+    float amplitude = 300;
+    double initial_time;
+    double initial_x;
+
 
     //MCU
     float center_x;
     float center_y;
-    float angle;
-    float radius = 50;
+    float angle = 0;
+    float radius = 200;
+    float mcu_speed = 900;
 
 
     //MRU / TRABAJO
@@ -60,8 +63,9 @@ protected:
     bool shm_happening;
     unsigned short crash_counter;
     unsigned short shm_counter;
+    unsigned short mcu_counter;
 
-    void calculate_phase(float initial_x);
+    void calculate_initial_time();
 private:
     qreal max_speed;
     qreal min_speed;

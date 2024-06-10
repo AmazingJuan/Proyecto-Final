@@ -28,8 +28,8 @@ float fisicas::trabajo(short direction)
 
 float fisicas::shm_x(unsigned int actual_time)
 {
-    float omega = 2 * M_PI * frequence;
-    double var = initial_x + amplitude*cos(omega * float(actual_time)/1000 + phase);
+    double omega = 2 * M_PI * frequence;
+    double var = 350 + amplitude*cos(omega * float(actual_time + initial_time)/10 + phase);
     return var;
 }
 
@@ -83,13 +83,24 @@ void fisicas::setShip_force(float newShip_force)
     ship_force = newShip_force;
 }
 
-void fisicas::calculate_phase(float initial_x)
+void fisicas::calculate_initial_time()
 {
-    double hola = acos(initial_x/amplitude);
-    phase = hola;
+    double omega = 2 * M_PI * frequence;
+    double aux = initial_x - 350;
+    double acoseno = acos(aux);
+    initial_time = (acos(double(initial_x - 350) / amplitude) - phase)/omega;
 }
 
-void fisicas::mcu(){
-
+QPoint fisicas::mcu(){
+    angle += mcu_speed;
+    float aux = angle * (M_PI / 180.0f);
+    float x = center_x + radius * cos(aux);
+    float y = center_y - radius * sin(aux);
+    QPoint result(x,y);
+    if(mcu_counter % 50 == 0) {
+        radius *= 0.95;
+        mcu_speed += 0.8;
+    }
+    return result;
 };
 
