@@ -14,7 +14,7 @@ SOURCES += \
     fisicas.cpp \
     main.cpp \
     obstaculo.cpp \
-    partidas.cpp \
+    partida.cpp \
     reglas_juego.cpp \
     utilities.cpp \
     ventana.cpp
@@ -24,7 +24,7 @@ HEADERS += \
     barco.h \
     fisicas.h \
     obstaculo.h \
-    partidas.h \
+    partida.h \
     reglas_juego.h \
     utilities.h \
     ventana.h

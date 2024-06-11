@@ -1,6 +1,8 @@
 #include "obstaculo.h"
+#include "utilities.h"
 
 obstaculo::obstaculo(unsigned short obs_number, float ship_mass, float ship_force, unsigned short max_pixels) : fisicas(0, 0, ship_mass, ship_force) {
+
     QString aux = prefix;
     aux.append("_" + std::to_string(obs_number) + ".gif");
     obstacle_animations = new animations(aux, max_pixels);
@@ -19,6 +21,11 @@ obstaculo::obstaculo(unsigned short obs_number, float ship_mass, float ship_forc
         else is_twister = false;
     }
     else is_dangerous = false;
+
+    reproductor = new QMediaPlayer;
+    output = new QAudioOutput;
+    reproductor -> setAudioOutput(output);
+    determine_audio_route(obs_number);
 }
 
 obstaculo::~obstaculo()
@@ -28,8 +35,10 @@ obstaculo::~obstaculo()
     setWidget(nullptr);
     delete obstacle_animations;
     this -> disconnect();
-}
 
+    delete reproductor;
+    delete output;
+}
 
 animations *obstaculo::getObstacle_animations()
 {
@@ -112,6 +121,21 @@ unsigned short obstaculo::getIssued_damage() const
 void obstaculo::setIssued_damage(unsigned short newIssued_damage)
 {
     issued_damage = newIssued_damage;
+}
+
+void obstaculo::play_own_music()
+{
+    play_music(audio_route, reproductor, output, true);
+}
+
+void obstaculo::determine_audio_route(unsigned short obs_number)
+{
+    if(obs_number <= 3){
+        audio_route = "qrc:/audio/Audios/crash.ogg";
+    }
+    else if(obs_number == 4) audio_route = "qrc:/audio/Audios/coin.wav";
+    else if(obs_number == 6) audio_route = "qrc:/audio/Audios/buy.mp3";
+    else if(obs_number == 7) audio_route = "qrc:/audio/Audios/error.mp3";
 }
 
 void obstaculo::change_speed(short direction)

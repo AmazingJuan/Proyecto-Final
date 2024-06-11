@@ -1,12 +1,11 @@
 #include "barco.h"
 
-barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5, 0.1 * level)
+barco::barco(unsigned short level, unsigned short hp, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5, 0.1 * level)
 {
     QString aux = file_prefix + QString::number(level);
     ship_animations = new animations(aux, ship_animations_number, 100);
-    money = 8500;
     this -> level = level;
-    hp = level * 50;
+    this -> hp = hp;
     crash_happening = false;
     shm_happening = false;
     this -> setWidget(ship_animations -> getMain_label());
@@ -19,7 +18,6 @@ barco::barco(int level, int pos_x, int pos_y) : fisicas(pos_x, pos_y, level * 5,
     connect(mcu_timer, &QTimer::timeout, this, &barco::mcu_timeout);
     setX(pos_x);
     setY(pos_y);
-
 }
 
 barco::~barco()
@@ -56,6 +54,11 @@ void barco::addMoney(unsigned short newMoney)
     money += newMoney;
 }
 
+void barco::setMoney(unsigned short money)
+{
+    this -> money = money;
+}
+
 unsigned short barco::getLevel() const
 {
     return level;
@@ -68,17 +71,19 @@ void barco::setLevel(unsigned short newLevel)
 
 void barco::level_up(unsigned short level)
 {
+    speed += 0.5;
     this -> level = level;
     ship_force *= level;
-    frequence -= 0.25;
     QString aux = file_prefix + QString::number(level);
     ship_animations -> change_animations(aux, 3);
+
 }
 
 void barco::stop_movement()
 {
     crash_timer -> stop();
     shm_timer -> stop();
+    mcu_timer -> stop();
 }
 
 unsigned short barco::getHp() const
@@ -107,7 +112,7 @@ void barco::crash_timeout()
             crash_counter = 0;
             crash_happening = false;
         }
-        speed = 2;
+        speed = previous_speed;
     }
 }
 
@@ -131,11 +136,13 @@ void barco::mcu_timeout()
     }
     else{
         mcu_timer -> stop();
+        emit mcu_finished();
     }
 }
 
 void barco::start_crash(float speed)
 {
+    previous_speed = this -> speed;
     crash_happening = true;
     crash_counter = 0;
     if(!crash_timer->isActive()) crash_timer -> start(25);

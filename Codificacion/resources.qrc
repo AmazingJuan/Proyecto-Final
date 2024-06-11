@@ -1,12 +1,14 @@
 <RCC>
     <qresource prefix="/imagenes">
         <file>Imagenes/menuppal.png</file>
-        <file>Imagenes/black_screen.jpg</file>
         <file>Imagenes/menuppal_carga.png</file>
         <file>Imagenes/menucompra.png</file>
         <file>Imagenes/fondo_1.jpg</file>
         <file>Imagenes/fondo_2.jpg</file>
         <file>Imagenes/fondo_3.jpg</file>
+        <file>Imagenes/gameover.png</file>
+        <file>Imagenes/twister.png</file>
+        <file>Imagenes/win.png</file>
     </qresource>
     <qresource prefix="/fuentes">
         <file>Fuentes/pirata.ttf</file>
@@ -33,5 +35,19 @@
         <file>Gifs/ship4_3.gif</file>
         <file>Gifs/obstacle_9.gif</file>
     </qresource>
-    <qresource prefix="/"/>
+    <qresource prefix="/audio">
+        <file>Audios/intro.mp3</file>
+        <file>Audios/stage_1.mp3</file>
+        <file>Audios/stage_2.mp3</file>
+        <file>Audios/stage_3.mp3</file>
+        <file>Audios/crash.ogg</file>
+        <file>Audios/middle.wav</file>
+        <file>Audios/coin.wav</file>
+        <file>Audios/twister_middle.mp3</file>
+        <file>Audios/twister.ogg</file>
+        <file>Audios/gameover.ogg</file>
+        <file>Audios/buy.mp3</file>
+        <file>Audios/error.mp3</file>
+        <file>Audios/victory.mp3</file>
+    </qresource>
 </RCC>

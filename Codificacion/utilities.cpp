@@ -1,5 +1,5 @@
 #include "utilities.h"
-#include "qgraphicsproxywidget.h"
+#include <QGraphicsProxyWidget>
 #include <QLabel>
 #include <random>
 
@@ -29,4 +29,22 @@ float calculate_distance(QPointF pos1, QPointF pos2){
     float dist_x = pos1.x() - pos2.x();
     float dist_y = pos1.y() - pos2.y();
     return sqrt((dist_x*dist_x) + (dist_y * dist_y));
+}
+
+bool is_numeric(QString text){
+    for (QChar c : text) {
+        if (!c.isDigit()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void play_music(QString route, QMediaPlayer *reproductor, QAudioOutput *output, bool is_obs)
+{
+    reproductor -> stop();
+    reproductor-> setSource(QUrl(route));
+    if(!is_obs) reproductor -> setLoops(QMediaPlayer::Infinite);
+    output->setVolume(0.2f);
+    reproductor -> play();
 }

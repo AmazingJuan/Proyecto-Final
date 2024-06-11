@@ -11,6 +11,7 @@
 #include "ui_MiddleMessage.h"
 
 #define custom_size 26;
+#define savegame_route "Savedata.txt"
 
 class ventana : public QMainWindow
 {
@@ -35,10 +36,13 @@ private:
     QVector<QGraphicsView *> forms;
     QVector<QLabel *> labels;
     QVector<QPushButton *> shop_buttons;
+    QVector<QPushButton *> hideable_buttons;
     QVector<QWidget *> widgets;
     reglas_juego *game;
 
     QFont font;
+
+    partida *partidas;
 
     void configure_graphics(QGraphicsView *graph);
     void keyPressEvent(QKeyEvent *event) override;
@@ -49,7 +53,8 @@ private:
     void wheelEvent(QWheelEvent *event) override;
 private slots:
     void close_window();
-    void change_label_text(int label_index, QString text, bool is_aligned);
+    void change_label_text(unsigned short label_index, QString text, bool is_aligned);
+    void change_button_visibility(unsigned short button);
     void hide_widget(int number);
     void show_widget(int number);
 };

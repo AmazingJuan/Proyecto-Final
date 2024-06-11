@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QTimer>
 #include <QObject>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 #include "animations.h"
 #include "fisicas.h"
@@ -16,6 +18,10 @@ class obstaculo : public QGraphicsProxyWidget, public fisicas
 public:
     obstaculo(unsigned short obs_number, float ship_mass, float ship_force, unsigned short max_pixels);
     ~obstaculo();
+
+    QMediaPlayer *reproductor;
+    QAudioOutput *output;
+
     void move(int direction);
     animations *getObstacle_animations();
     bool getIs_dangerous() const;
@@ -30,7 +36,7 @@ public:
 
     unsigned short getIssued_damage() const;
     void setIssued_damage(unsigned short newIssued_damage);
-
+    void play_own_music();
 private:
     bool is_dangerous;
     bool is_twister;
@@ -38,6 +44,11 @@ private:
     animations *obstacle_animations;
     QTimer *movement_timer;
     QTimer *crash_timer;
+
+
+    QString audio_route;
+
+    void determine_audio_route(unsigned short obs_number);
 private slots:
     void handle_timeout();
     void crash_timeout();

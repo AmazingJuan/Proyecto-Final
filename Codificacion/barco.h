@@ -13,12 +13,13 @@ class barco : public QGraphicsProxyWidget, public fisicas
 {
     Q_OBJECT
 public:
-    barco(int level, int pos_x, int pos_y);
+    barco(unsigned short level, unsigned short hp, int pos_x, int pos_y);
     ~barco();
     void move(int key);
     animations *getShip_animations();
     unsigned short getMoney() const;
     void addMoney(unsigned short newMoney);
+    void setMoney(unsigned short money);
     unsigned short getLevel() const;
     void setLevel(unsigned short newLevel);
     void level_up(unsigned short level);
@@ -31,6 +32,7 @@ private:
     unsigned int money;
     unsigned  short level;
     unsigned short hp;
+    float previous_speed;
     animations *ship_animations;
     QTimer *crash_timer;
     QTimer *shm_timer;
@@ -42,6 +44,7 @@ private slots:
 signals:
     void ask_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
     void crash_management();
+    void mcu_finished();
 public slots:
     void start_crash(float speed);
     void start_shm();
