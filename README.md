@@ -1,6 +1,6 @@
 # Descubriendo América.
 
-![LOGO UDEA](https://w1.pngwing.com/pngs/281/989/png-transparent-green-circle-university-of-antioquia-university-of-los-andes-universidad-de-antioquia-universidad-de-los-andes-edificio-education-research-doctorate-thumbnail.png)
+![LOGO UDEA](https://www.udea.edu.co/wps/wcm/connect/udea/99fc43e7-7a64-45bd-97fc-96639b70813d/logosimbolo-vertical.png?MOD=AJPERES&CVID=ljeLvHr)
 
 #### Nombre
 Juan Pablo de Jesus Avendaño Bustamante
@@ -8,7 +8,7 @@ Juan Pablo de Jesus Avendaño Bustamante
 C++ 17
 #### IDE
 QtCreator
-#### Link del video y trailer
-Video: https://youtu.be/cp3bmFuqzqI
-Trailer: https://youtu.be/FY0VmX_Kacs
-
+#### Link del video
+https://youtu.be/cp3bmFuqzqI
+### Link del trailer
+https://youtu.be/FY0VmX_Kacs
