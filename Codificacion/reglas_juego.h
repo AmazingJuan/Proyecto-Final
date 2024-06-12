@@ -38,26 +38,30 @@ public:
     void setup();
     void key_pressed(int key);
 private:
+    //VECTORES.
     QVector<QLabel *> labels;
+    QVector<QLabel *> image_labels;
     QVector<QPushButton *> shop_buttons;
     QVector<QGraphicsView *> interfaces;
     QVector<QGraphicsScene *> scenes;
 
+    //PARTIDA GUARDADA.
     partida *saves;
 
+    //TIMERS DE JUEGO.
     QTimer *game_timer;
     QTimer *change_scene_timer;
     QTimer *dispatch_obstacles_timer;
     QTimer *wave_timer;
 
+    //SHORTS CON ESTADOS DEL JUEGO.
     unsigned short current_scene;
     unsigned short in_scene_obstacles;
     unsigned short next_scene;
     unsigned short current_stage;
-    unsigned short random_int_range;
     unsigned short game_time_counter;
 
-    unsigned int seed;
+    //PRECIOS DE LA TIENDA.
     unsigned int shop_prices[3];
 
     bool twister_death;
@@ -68,24 +72,36 @@ private:
 
     barco *ship;
 
-
-
+    //VECTOR DE OBSTACULOS, TODOS ALOJADOS EN EL HEAP.
     QVector<obstaculo*> moving_obstacles;
     QVector<obstaculo*> removed_obstacles;
     QVector<obstaculo*> shop_obstacles;
+
+    //VECTOR DE QSTRING.
     QVector<QString> stage_messages;
 
+    //CONEXIONES
     void initial_conections();
     void stage_connections();
     void obstacle_connections(obstaculo *obstacle);
-    bool is_colliding(QGraphicsProxyWidget *widget);
+
+    //LIBERACION
     void dispose_obstacles();
     void dispose_removed_obstacles();
     void dispose_shop_obstacles();
-    void setup_obstacles();
+    void dispose_scenes();
+    void dispose_image_labels();
+
+    //SETUP
     void setup_stage();
-    void setup_scene(QGraphicsScene *scene);
     void setup_shop();
+
+    //EVENTOS DEL JUEGO
+    bool is_colliding(QGraphicsProxyWidget *widget);
+    void gameover();
+    void win();
+
+    //CAMBIOS DE ESCENA, CARGA DE MENUS, ETCETERA.
     void switch_scenes();
     void main_menu();
     void main_menu_load();
@@ -93,9 +109,8 @@ private:
     void handle_menu_compra();
     void update_shop(unsigned short blocked_buttons);
     void handle_end_stage();
-    void gameover();
-    void win();
     void stop_game();
+
 public slots:
     void loadMenu(bool dato);
     void try_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
@@ -107,20 +122,20 @@ public slots:
     void handle_mcu_finish();
     void manage_shop_buttons();
     void start_game();
-    void cargar();
 signals:
+    //DISPARADOR DE FISICAS.
     void crash(QGraphicsProxyWidget *widget);
     void shm();
     void mcu();
     void crash_ship(float speed);
     void change_speed(short direction);
-    void crear_archivo();
+
+    //CAMBIOS EN LA ESCENA.
     void hide_screen(unsigned short screen);
     void show_screen(unsigned short  screen);
     void hide_button(unsigned short button);
     void shoot_label_change(unsigned short label_index, QString new_text, bool is_aligned);
     void shoot_button_change(unsigned short button_index);
-    void deletion();
 };
 
 #endif // REGLAS_JUEGO_H

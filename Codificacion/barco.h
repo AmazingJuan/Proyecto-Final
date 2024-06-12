@@ -26,13 +26,11 @@ public:
     void stop_movement();
     unsigned short getHp() const;
     void setHp(unsigned short newHp);
-
 private:
     int actual_animation;
     unsigned int money;
     unsigned  short level;
     unsigned short hp;
-    float previous_speed;
     animations *ship_animations;
     QTimer *crash_timer;
     QTimer *shm_timer;
@@ -43,7 +41,6 @@ private slots:
     void mcu_timeout();
 signals:
     void ask_move(QPoint future_pos, QGraphicsProxyWidget *widget, bool crash_happening);
-    void crash_management();
     void mcu_finished();
 public slots:
     void start_crash(float speed);

@@ -10,7 +10,7 @@
 class fisicas
 {
 public:
-    fisicas(int pos_x, int pos_y, float mass, float ship_force);
+    fisicas(int pos_x, int pos_y, float mass, float ship_force, unsigned short SPEED_MAX);
     float mru(short direction);
     float trabajo(short direction);
     float shm_x(unsigned int actual_time);
@@ -31,15 +31,17 @@ public:
     float getShip_force() const;
     void setShip_force(float newShip_force);
 
+    unsigned short getMax_speed() const;
+
 protected:
-    float SPEED_MAX = 4;
     const float SPEED_MIN = 1;
     const float DEFAULT_SPEED = 2;
+    unsigned short max_speed;
 
     //MAS
     float frequence = 0.05;
     double phase = M_PI / 2;
-    float amplitude = 300;
+    float amplitude = 250;
     double initial_time;
     double initial_x;
 
@@ -49,7 +51,7 @@ protected:
     float center_y;
     float angle = 0;
     float radius = 200;
-    float mcu_speed = 900;
+    float mcu_speed = 1;
 
 
     //MRU / TRABAJO
@@ -67,8 +69,7 @@ protected:
 
     void calculate_initial_time();
 private:
-    qreal max_speed;
-    qreal min_speed;
+    unsigned short min_speed;
 };
 
 

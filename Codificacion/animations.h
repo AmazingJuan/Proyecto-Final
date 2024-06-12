@@ -15,7 +15,6 @@ public:
     animations(QString route, unsigned short max_pixels);
     ~animations();
     QLabel *getMain_label();
-
     void change_animations(QString file_prefix, int number_animations);
     void set_animation(unsigned short animation_number);
 private:
@@ -24,6 +23,7 @@ private:
     QVector<QMovie *> movies;
     unsigned short animations_number;
     unsigned short max_pixels;
+
     void initialize_movies();
     void setup_label(unsigned short max_pixels);
     void dispose_movies();

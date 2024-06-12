@@ -49,5 +49,6 @@
         <file>Audios/buy.mp3</file>
         <file>Audios/error.mp3</file>
         <file>Audios/victory.mp3</file>
+        <file>Audios/wave.mp3</file>
     </qresource>
 </RCC>
